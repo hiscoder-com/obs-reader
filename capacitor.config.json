@@ -1,0 +1,8 @@
+{
+  "appId": "com.openbibletest.capacitor",
+  "appName": "side-loading",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

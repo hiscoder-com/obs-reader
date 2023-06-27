@@ -6,7 +6,18 @@ const cacheStore = localforage.createInstance({
   name: 'web-cache',
 });
 
-const options = {
+localforage
+  .ready()
+  .then(function () {
+    console.log(localforage.driver()); // LocalStorage
+  })
+  .catch(function (e) {
+    console.log(e); // `No available storage method found.`
+    // One of the cases that `ready()` rejects,
+    // is when no usable storage driver is found
+  });
+
+  const options = {
   store: cacheStore,
   maxAge: 15 * 60 * 1000, // 15-minutes
   debug: true,
