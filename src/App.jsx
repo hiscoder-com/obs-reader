@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import './App.css';
 import ReactMarkdown from 'react-markdown';
 import axios from './helper';
+import './App.css';
+import UploadResources from './Upload';
 
 function App() {
   const [markdown, setMarkdown] = useState('');
@@ -13,12 +14,16 @@ function App() {
           story +
           '.md'
       )
-      .then((res) => setMarkdown(res.data));
+      .then((res) => {
+        setMarkdown(res.data);
+      });
   };
   return (
     <>
       <h1>axios-cache-interceptor</h1>
       <div className="card">
+        <UploadResources />
+        <br />
         <input value={story} onChange={(e) => setStory(e.target.value)} />{' '}
         <br />
         <button onClick={getStory}>Load</button>

@@ -1,10 +1,6 @@
 import localforage from 'localforage';
 import { setup } from 'axios-cache-adapter';
-
-const cacheStore = localforage.createInstance({
-  driver: [localforage.INDEXEDDB],
-  name: 'web-cache',
-});
+import {TTL, storage} from './helper'
 
 localforage
   .ready()
@@ -18,8 +14,8 @@ localforage
   });
 
   const options = {
-  store: cacheStore,
-  maxAge: 15 * 60 * 1000, // 15-minutes
+  store: storage,
+  maxAge: TTL,
   debug: true,
   clearOnStale: false,
   clearOnError: false,
@@ -28,7 +24,6 @@ localforage
     methods: ['put', 'patch', 'delete'],
   },
   key: (req) => {
-    console.log({ method: req.method });
     return req.method + '+' + req.url;
   },
 };
