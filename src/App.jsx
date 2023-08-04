@@ -1,36 +1,22 @@
-import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import axios from './helper';
-import './App.css';
-import UploadResources from './Upload';
-
-function App() {
-  const [markdown, setMarkdown] = useState('');
-  const [story, setStory] = useState('01');
-  const getStory = () => {
-    axios
-      .get(
-        'https://git.door43.org/ru_gl/ru_obs/raw/branch/master/content/' +
-          story +
-          '.md'
-      )
-      .then((res) => {
-        setMarkdown(res.data);
-      });
-  };
+import { Route, Routes } from 'react-router-dom';
+import MainPage from './pages/main';
+import ErrorPage from './pages/error';
+import SettingsPage from './pages/settings/index';
+import StoryPage from './pages/story';
+import Layout from './components/Layout';
+import LanguagePage from './pages/settings/language';
+import FontPage from './pages/settings/font';
+export default function App() {
   return (
-    <>
-      <h1>axios-cache-interceptor</h1>
-      <div className="card">
-        <UploadResources />
-        <br />
-        <input value={story} onChange={(e) => setStory(e.target.value)} />{' '}
-        <br />
-        <button onClick={getStory}>Load</button>
-        <ReactMarkdown>{markdown}</ReactMarkdown>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/settings/language" element={<LanguagePage />} />
+        <Route path="/settings/font" element={<FontPage />} />
+        <Route path=":lang/:story" element={<StoryPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;

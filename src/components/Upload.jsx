@@ -1,11 +1,13 @@
 import JSZip from 'jszip';
 import { useState } from 'react';
-import { TTL, storage } from './helper';
+import { TTL, storage } from '../helper';
+import { useRecoilValue } from 'recoil';
+import { languageState } from '../atoms';
+import { langList } from '../constants';
 
 function UploadResources() {
-  const [owner, setOwner] = useState('');
-  const [repo, setRepo] = useState('');
   const [file, setFile] = useState();
+  const language = useRecoilValue(languageState);
 
   const onChange = (evt) => {
     var file = evt.target.files[0];
@@ -17,26 +19,23 @@ function UploadResources() {
   };
 
   const loadToLS = () => {
-    if (!file || !repo || !owner) {
+    if (!file) {
       return false;
     }
     const zip = new JSZip();
     zip.loadAsync(file).then(function (zip) {
       zip.forEach(function (relativePath, zipEntry) {
+        console.log({relativePath, zipEntry})
         if (
           !zipEntry.dir &&
           ['md'].includes(zipEntry.name.substring(zipEntry.name.length - 2))
         ) {
-          console.log({ name: zipEntry.name });
-          const file = zipEntry.name;
+          const file = zipEntry.name.split('/').pop();
           zipEntry.async('string').then(
             function success(content) {
               storage.setItem(
                 'get+https://git.door43.org/' +
-                  owner +
-                  '/' +
-                  repo +
-                  '/raw/branch/master/content/' +
+                  langList[language] +
                   file,
                 {
                   expires: Date.now() + TTL,
@@ -97,18 +96,6 @@ function UploadResources() {
         className="file"
         accept=".zip"
       />
-      <br />
-      <input
-        type="text"
-        value={owner}
-        onChange={(e) => setOwner(e.target.value)}
-      />
-      <br />
-      <input
-        type="text"
-        value={repo}
-        onChange={(e) => setRepo(e.target.value)}
-      />{' '}
       <br />
       <button onClick={loadToLS}>Load</button> <br />
       <button style={{ background: '#f335' }} onClick={clearCache}>
