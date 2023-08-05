@@ -7,7 +7,7 @@ import FontList from '../../components/FontList';
 
 export default function FontPage() {
   const setSubtitle = useSetRecoilState(subtitleState);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     setSubtitle(t('Settings'));

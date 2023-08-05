@@ -6,7 +6,7 @@ import { List, ListItem, Radio } from 'konsta/react';
 import { useTranslation } from 'react-i18next';
 
 const LanguageList = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const [language, setLanguage] = useRecoilState(languageState);
   useEffect(() => {
     i18n.changeLanguage(language);

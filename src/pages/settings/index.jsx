@@ -113,7 +113,8 @@ export default function SettingsPage() {
         <ListButton
           className="k-color-brand-red"
           component="div"
-          onClick={() => setConfirmOpened(true)}>
+          onClick={() => setConfirmOpened(true)}
+        >
           {t('ClearCache')}
         </ListButton>
       </List>
@@ -125,14 +126,13 @@ export default function SettingsPage() {
         content={t('DataRemoved')}
         buttons={
           <>
-            <DialogButton onClick={() => setConfirmOpened(false)}>
-              {t('No')}
-            </DialogButton>
+            <DialogButton onClick={() => setConfirmOpened(false)}>{t('No')}</DialogButton>
             <DialogButton
               strong
               onClick={() => {
                 clearCache();
-              }}>
+              }}
+            >
               {t('Yes')}
             </DialogButton>
           </>

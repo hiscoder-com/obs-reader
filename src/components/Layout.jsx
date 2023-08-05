@@ -1,27 +1,20 @@
-import {
-  App,
-  Link,
-  Navbar,
-  NavbarBackLink,
-  Page,
-} from 'konsta/react';
+import { App, Link, Navbar, NavbarBackLink, Page } from 'konsta/react';
 import { Outlet, Link as RouterLink } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { subtitleState } from '../atoms';
 
-// const isAndroid = () => {
-// const uA = navigator.userAgent || navigator.vendor || window.opera;
-// if (
-//   (/iPad|iPhone|iPod/.test(uA) && !window.MSStream) ||
-//   (uA.includes('Mac') && 'ontouchend' in document)
-// )
-//   return false;
-// }
+function getTheme() {
+  const uA = navigator.userAgent || navigator.vendor || window.opera;
+  if ((/iPad|iPhone|iPod/.test(uA) && !window.MSStream) || uA.includes('Mac')) {
+    return 'ios';
+  }
+  return 'material';
+}
 
 export default function Layout() {
   const subtitle = useRecoilValue(subtitleState);
   return (
-    <App theme="ios">
+    <App theme={getTheme()}>
       <Page>
         <Navbar
           title="OBS.online"
@@ -35,7 +28,8 @@ export default function Layout() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

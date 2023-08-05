@@ -10,8 +10,7 @@ export default function MainPage() {
       <div className="card">
         <UploadResources />
         <br />
-        <input value={story} onChange={(e) => setStory(e.target.value)} />{' '}
-        <br />
+        <input value={story} onChange={(e) => setStory(e.target.value)} /> <br />
       </div>
     </Block>
   );

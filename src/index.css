@@ -1,26 +1,26 @@
 @font-face {
-font-family: 'MarckScript';
-font-style: normal;
-font-weight: normal;
-src: url(/fonts/MarckScript-Regular.woff) format('woff');
+  font-family: 'MarckScript';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/fonts/MarckScript-Regular.woff) format('woff');
 }
 @font-face {
-font-family: 'Roboto';
-font-style: italic;
-font-weight: normal;
-src: url(/fonts/Roboto-Italic.woff) format('woff');
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: normal;
+  src: url(/fonts/Roboto-Italic.woff) format('woff');
 }
 @font-face {
-font-family: 'Roboto';
-font-style: normal;
-font-weight: bold;
-src: url(/fonts/Roboto-Bold.woff) format('woff');
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  src: url(/fonts/Roboto-Bold.woff) format('woff');
 }
 @font-face {
-font-family: 'Roboto';
-font-style: normal;
-font-weight: normal;
-src: url(/fonts/Roboto-Regular.woff) format('woff');
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/fonts/Roboto-Regular.woff) format('woff');
 }
 @tailwind base;
 @tailwind components;

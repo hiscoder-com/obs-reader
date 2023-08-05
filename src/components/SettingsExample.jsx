@@ -1,11 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import {
-  fontSizeState,
-  fontState,
-  showImagesState,
-} from '../atoms';
+import { fontSizeState, fontState, showImagesState } from '../atoms';
 import { Card } from 'konsta/react';
 import { useTranslation } from 'react-i18next';
+import { fontList } from '../constants';
 
 const SettingsExample = () => {
   const { t } = useTranslation();
@@ -26,8 +23,9 @@ const SettingsExample = () => {
         style={{
           fontSize: `${parseInt(fontSize)}px`,
           lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,
-          fontFamily: font === 'default' ? '' : font,
-        }}>
+          fontFamily: font === 'default' ? '' : fontList[font],
+        }}
+      >
         {t('Story-1-1')}
       </p>
     </Card>

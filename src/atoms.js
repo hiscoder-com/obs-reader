@@ -1,4 +1,4 @@
-import {atom} from 'recoil'
+import { atom } from 'recoil';
 
 let defaultFont = 'default';
 if (!localStorage.getItem('font')) {
@@ -29,7 +29,7 @@ export const subtitleState = atom({
   default: '',
 });
 
-let defaultShowImages = "1";
+let defaultShowImages = '1';
 if (!localStorage.getItem('showImages')) {
   localStorage.setItem('showImages', defaultShowImages);
 } else {

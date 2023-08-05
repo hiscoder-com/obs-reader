@@ -14,14 +14,16 @@ const FontList = () => {
   }, [font]);
   return (
     <List strongIos outlineIos defaultChecked={font}>
-      {Object.entries(fontList).map(([name]) => (
+      {Object.entries(fontList).map(([name, fontFamily]) => (
         <ListItem
           key={name}
           label
           title={name}
+          style={{ fontFamily }}
           media={
             <Radio
               component="div"
+              pro
               value={name}
               checked={font === name}
               onChange={() => setFont(name)}
