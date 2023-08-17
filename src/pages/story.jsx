@@ -1,17 +1,36 @@
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Block } from 'konsta/react';
-import { langList } from '../constants';
-import { MdToJson } from '@texttree/obs-format-convert-rcl/dist/components';
-import { useSetRecoilState } from 'recoil';
-import { subtitleState } from '../atoms';
+import { fontList, langList } from '../constants';
+import MdToJson from '@texttree/obs-format-convert-rcl/dist/components/MdToJson';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  fontSizeState,
+  fontState,
+  languageState,
+  showImagesState,
+  subtitleState,
+} from '../atoms';
 
 export default function StoryPage() {
+  const navigate = useNavigate();
   const { lang, story } = useParams();
+  const language = useRecoilValue(languageState);
+  const font = useRecoilValue(fontState);
+  const fontSize = useRecoilValue(fontSizeState);
+  const showImages = useRecoilValue(showImagesState);
   const setSubtitle = useSetRecoilState(subtitleState);
   const [storyJson, setStoryJson] = useState({});
   useEffect(() => {
+    if (lang !== language) {
+      navigate(`/${language}/${story}`);
+    }
+  }, [lang, language, navigate, story]);
+
+  useEffect(() => {
+    setStoryJson({});
+    setSubtitle('...');
     axios
       .get(
         'https://git.door43.org/' +
@@ -25,13 +44,24 @@ export default function StoryPage() {
         setSubtitle(jsonData.title);
       });
   }, [lang, setSubtitle, story]);
+
   return (
-    <Block>
+    <Block
+      style={{
+        fontSize: `${parseInt(fontSize)}px`,
+        lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,
+        fontFamily: font === 'default' ? '' : fontList[font],
+      }}
+    >
       {storyJson?.verseObjects ? (
         storyJson?.verseObjects.map((verse) => (
           <Fragment key={verse.verse}>
-            <img src={`https://cdn.door43.org/obs/jpg/360px/${verse.path}`} />
-            <p>{verse.text}</p>
+            {showImages === '1' ? (
+              <img src={`https://cdn.door43.org/obs/jpg/360px/${verse.path}`} />
+            ) : (
+              ''
+            )}
+            <p className="mb-4">{verse.text}</p>
           </Fragment>
         ))
       ) : (

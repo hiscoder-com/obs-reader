@@ -62,28 +62,12 @@ function UploadResources() {
     });
   };
 
-  const clearCache = () => {
-    storage
-      .keys()
-      .then(function (keys) {
-        keys.forEach((el) => {
-          storage.removeItem(el);
-        });
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  };
-
   return (
     <>
       <hr />
       <input type="file" onChange={onChange} name="file" className="file" accept=".zip" />
       <br />
       <button onClick={loadToLS}>Load</button> <br />
-      <button style={{ background: '#f335' }} onClick={clearCache}>
-        Clear Cache!
-      </button>
     </>
   );
 }

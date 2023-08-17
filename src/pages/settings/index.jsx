@@ -14,7 +14,7 @@ import {
   fontState,
   languageState,
   showImagesState,
-  subtitleState,
+  titleState,
 } from '../../atoms';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -25,15 +25,15 @@ import SettingsExample from '../../components/SettingsExample';
 
 export default function SettingsPage() {
   const { t } = useTranslation();
-  const setSubtitle = useSetRecoilState(subtitleState);
+  const setTitle = useSetRecoilState(titleState);
   const language = useRecoilValue(languageState);
   const font = useRecoilValue(fontState);
   const [showImages, setShowImages] = useRecoilState(showImagesState);
   const [fontSize, setFontSize] = useRecoilState(fontSizeState);
 
   useEffect(() => {
-    setSubtitle('');
-  }, [setSubtitle]);
+    setTitle('Settings');
+  }, [setTitle]);
 
   const [confirmOpened, setConfirmOpened] = useState(false);
 
@@ -66,7 +66,7 @@ export default function SettingsPage() {
 
   return (
     <>
-      <BlockTitle>{t('Settings')}</BlockTitle>
+      <BlockTitle>Внешний вид</BlockTitle>
       <List strongIos outlineIos insetIos>
         <ListItem
           link
@@ -110,6 +110,38 @@ export default function SettingsPage() {
             />
           }
         />
+      </List>
+      <SettingsExample />
+      <BlockTitle>Управление контентом</BlockTitle>
+      <List strongIos outlineIos insetIos>
+        <ListItem
+          link
+          linkComponent={Link}
+          linkProps={{ to: '/settings/language' }}
+          title={t('Language')}
+          after={t(language)}
+        />
+        <ListButton
+          component="div"
+          onClick={() => {
+            /**
+           * axios
+      .get(
+        'https://git.door43.org/' +
+          langList[lang] +
+          String(story).padStart(2, '0') +
+          '.md'
+      )
+
+      надо в фоне запустить прогрузку всех этих юрл чтобы в итоге создался кеш
+           */
+          }}
+        >
+          {t('Загрузить истории из интернета')}
+        </ListButton>
+        <ListButton component="div" onClick={() => setConfirmOpened(true)}>
+          {t('Загрузить истории с устройства')}
+        </ListButton>
         <ListButton
           className="k-color-brand-red"
           component="div"
@@ -118,7 +150,6 @@ export default function SettingsPage() {
           {t('ClearCache')}
         </ListButton>
       </List>
-      <SettingsExample />
       <Dialog
         opened={confirmOpened}
         onBackdropClick={() => setConfirmOpened(false)}

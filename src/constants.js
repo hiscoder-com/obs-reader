@@ -21,6 +21,6 @@ export const langList = {
 
 export const fontList = {
   default: '',
-  Roboto: '"Roboto",  sans-serif',
+  DavidLibre: '"DavidLibre",  sans-serif',
   MarckScript: '"Marck Script", cursive',
 };

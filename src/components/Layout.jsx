@@ -1,25 +1,44 @@
-import { App, Link, Navbar, NavbarBackLink, Page } from 'konsta/react';
+import { App, Link, Navbar, Page } from 'konsta/react';
 import { Outlet, Link as RouterLink } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { subtitleState } from '../atoms';
-
-function getTheme() {
-  const uA = navigator.userAgent || navigator.vendor || window.opera;
-  if ((/iPad|iPhone|iPod/.test(uA) && !window.MSStream) || uA.includes('Mac')) {
-    return 'ios';
-  }
-  return 'material';
-}
+import { useState } from 'react';
+import { getTheme } from '../helper';
+import LeftMenu from './LeftMenu';
+import { useTranslation } from 'react-i18next';
 
 export default function Layout() {
   const subtitle = useRecoilValue(subtitleState);
+  const { t } = useTranslation();
+  const [leftPanelOpened, setLeftPanelOpened] = useState(false);
   return (
     <App theme={getTheme()}>
       <Page>
         <Navbar
-          title="OBS.online"
+          title={t('OpenBibleStories')}
           subtitle={subtitle}
+          titleFontSizeMaterial="17"
+          titleClassName="truncate"
+          subtitleClassName="truncate"
           className="top-0 sticky"
+          left={
+            <Link navbar onClick={() => setLeftPanelOpened(true)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                />
+              </svg>
+            </Link>
+          }
           right={
             <Link navbar component={RouterLink} to={'/settings'}>
               <svg
@@ -43,7 +62,10 @@ export default function Layout() {
               </svg>
             </Link>
           }
-          left={<NavbarBackLink text="Back" onClick={() => history.back()} />}
+        />
+        <LeftMenu
+          leftPanelOpened={leftPanelOpened}
+          setLeftPanelOpened={setLeftPanelOpened}
         />
         <Outlet />
       </Page>

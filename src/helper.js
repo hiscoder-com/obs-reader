@@ -24,7 +24,7 @@ const localForage = buildStorage({
   },
 });
 
-const axios = setupCache(Axios, {
+export const axios = setupCache(Axios, {
   debug: console.log,
   storage: localForage,
   cacheTakeover: false,
@@ -32,4 +32,10 @@ const axios = setupCache(Axios, {
   generateKey: (request) => request.method + '+' + request.url,
 });
 
-export default axios;
+export const getTheme = () => {
+  const uA = navigator.userAgent || navigator.vendor || window.opera;
+  if ((/iPad|iPhone|iPod/.test(uA) && !window.MSStream) || uA.includes('Mac')) {
+    return 'ios';
+  }
+  return 'material';
+};

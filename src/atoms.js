@@ -29,6 +29,11 @@ export const subtitleState = atom({
   default: '',
 });
 
+export const titleState = atom({
+  key: 'titleState',
+  default: '',
+});
+
 let defaultShowImages = '1';
 if (!localStorage.getItem('showImages')) {
   localStorage.setItem('showImages', defaultShowImages);

@@ -13,7 +13,7 @@ const SettingsExample = () => {
     <Card>
       {showImages === '1' ? (
         <img
-          className="w-full pb-2"
+          className="pb-2"
           src="https://cdn.door43.org/obs/jpg/360px/obs-en-01-01.jpg"
         />
       ) : (

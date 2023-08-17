@@ -5,6 +5,24 @@
   src: url(/fonts/MarckScript-Regular.woff) format('woff');
 }
 @font-face {
+  font-family: 'DavidLibre';
+  font-style: italic;
+  font-weight: normal;
+  src: url(/fonts/DavidLibre-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'DavidLibre';
+  font-style: normal;
+  font-weight: bold;
+  src: url(/fonts/DavidLibre-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'DavidLibre';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/fonts/DavidLibre-Regular.woff) format('woff');
+}
+@font-face {
   font-family: 'Roboto';
   font-style: italic;
   font-weight: normal;
