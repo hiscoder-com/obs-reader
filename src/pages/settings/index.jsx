@@ -66,15 +66,8 @@ export default function SettingsPage() {
 
   return (
     <div className="mt-5 mx-auto max-w-4xl">
-      <BlockTitle>Appearance</BlockTitle>
+      <BlockTitle>{t('Appearance')}</BlockTitle>
       <List strongIos outlineIos insetIos>
-        {/* <ListItem
-          link
-          linkComponent={Link}
-          linkProps={{ to: '/settings/language' }}
-          title={t('Language')}
-          after={t(language)}
-        /> */}
         <ListItem
           link
           linkComponent={Link}
@@ -112,7 +105,7 @@ export default function SettingsPage() {
         />
       </List>
       <SettingsExample />
-      <BlockTitle>Data</BlockTitle>
+      <BlockTitle>{t('Data')}</BlockTitle>
       <List strongIos outlineIos insetIos>
         <ListItem
           link

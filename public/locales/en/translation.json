@@ -1,15 +1,21 @@
 {
+  "Appearance": "Appearance",
   "Back": "Back",
   "ClearCache": "Clear Cache",
+  "Data": "Data",
   "DataRemoved": "All data will be deleted. Are you sure?",
+  "en": "English",
   "Error": "Error",
   "ErrorMessage": "Sorry, an unexpected error has occurred.",
   "ErrorTitle": "Oops!",
   "Font": "Font",
   "FontSize": "Font size",
   "Language": "Language",
+  "Loading...": "Loading...",
+  "LoadOBS": "Load stories",
   "No": "No",
   "OpenBibleStories": "Open Bible Stories",
+  "ru": "Русский",
   "Settings": "Settings",
   "ShowImages": "Show images",
   "Story-1-1": "This is how God made everything in the beginning. He created the universe and everything in it in six days. After God created the earth it was dark and empty because he had not yet formed anything in it. But God’s Spirit was there over the water.",
@@ -64,8 +70,5 @@
   "Story49": "# 49. God’s New Covenant",
   "Story50": "# 50. Jesus Returns",
   "TOC": "Table of contents",
-  "Yes": "Yes",
-  "en": "English",
-  "ru": "Русский",
-  "LoadOBS": "Load stories"
+  "Yes": "Yes"
 }

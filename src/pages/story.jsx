@@ -12,10 +12,12 @@ import {
   showImagesState,
   subtitleState,
 } from '../atoms';
+import { useTranslation } from 'react-i18next';
 
 export default function StoryPage() {
   const navigate = useNavigate();
   const { lang, story } = useParams();
+  const { t } = useTranslation();
   const language = useRecoilValue(languageState);
   const font = useRecoilValue(fontState);
   const fontSize = useRecoilValue(fontSizeState);
@@ -67,7 +69,7 @@ export default function StoryPage() {
           </Fragment>
         ))
       ) : (
-        <>Loadding...</>
+        <>{t('Loading...')}</>
       )}
       <p className="font-bold">{storyJson?.reference}</p>
     </Block>
