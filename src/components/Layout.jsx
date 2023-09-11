@@ -18,9 +18,10 @@ export default function Layout() {
           title={t('OpenBibleStories')}
           subtitle={subtitle}
           titleFontSizeMaterial="17"
-          titleClassName="truncate"
+          titleClassName="truncate !static !transform-none"
           subtitleClassName="truncate"
           className="top-0 sticky"
+          innerClassName="my-0 mx-auto max-w-4xl"
           left={
             <Link navbar onClick={() => setLeftPanelOpened(true)}>
               <svg

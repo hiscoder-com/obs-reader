@@ -65,16 +65,16 @@ export default function SettingsPage() {
   };
 
   return (
-    <>
-      <BlockTitle>Внешний вид</BlockTitle>
+    <div className="mt-5 mx-auto max-w-4xl">
+      <BlockTitle>Appearance</BlockTitle>
       <List strongIos outlineIos insetIos>
-        <ListItem
+        {/* <ListItem
           link
           linkComponent={Link}
           linkProps={{ to: '/settings/language' }}
           title={t('Language')}
           after={t(language)}
-        />
+        /> */}
         <ListItem
           link
           linkComponent={Link}
@@ -112,7 +112,7 @@ export default function SettingsPage() {
         />
       </List>
       <SettingsExample />
-      <BlockTitle>Управление контентом</BlockTitle>
+      <BlockTitle>Data</BlockTitle>
       <List strongIos outlineIos insetIos>
         <ListItem
           link
@@ -137,10 +137,10 @@ export default function SettingsPage() {
            */
           }}
         >
-          {t('Загрузить истории из интернета')}
+          {t('Load from internet')}
         </ListButton>
         <ListButton component="div" onClick={() => setConfirmOpened(true)}>
-          {t('Загрузить истории с устройства')}
+          {t('Load from device')}
         </ListButton>
         <ListButton
           className="k-color-brand-red"
@@ -169,6 +169,6 @@ export default function SettingsPage() {
           </>
         }
       />
-    </>
+    </div>
   );
 }

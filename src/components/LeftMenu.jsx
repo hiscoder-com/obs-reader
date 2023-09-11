@@ -23,7 +23,7 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
           />
         ))
     );
-  }, [t]);
+  }, [language, setLeftPanelOpened, t]);
   return (
     <Panel
       side="left"

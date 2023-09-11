@@ -14,6 +14,7 @@ export default function Settings() {
         <Navbar
           title={t(title)}
           className="top-0 sticky"
+          innerClassName="my-0 mx-auto max-w-4xl"
           left={<NavbarBackLink text={t('Back')} onClick={() => history.back()} />}
         />
         <Outlet />

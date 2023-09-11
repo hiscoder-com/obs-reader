@@ -11,14 +11,17 @@ export default function Settings() {
         <Navbar
           title={t('Error')}
           className="top-0 sticky"
+          innerClassName="my-0 mx-auto max-w-4xl"
           left={<NavbarBackLink component={RouterLink} text={t('Back')} to={'/'} />}
         />
-        <BlockTitle>
-          <h1>{t('ErrorTitle')}</h1>
-        </BlockTitle>
-        <Block>
-          <p>{t('ErrorMessage')}</p>
-        </Block>
+        <div className="mt-5 mx-auto max-w-4xl">
+          <BlockTitle>
+            <h1>{t('ErrorTitle')}</h1>
+          </BlockTitle>
+          <Block>
+            <p>{t('ErrorMessage')}</p>
+          </Block>
+        </div>
       </Page>
     </App>
   );

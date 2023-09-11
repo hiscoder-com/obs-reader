@@ -15,7 +15,7 @@ const LanguageList = () => {
     const lsLanguage = localStorage.getItem('language');
     if (language !== lsLanguage) {
       localStorage.setItem('language', language);
-      navigate('/settings');
+      navigate(-1);
     }
   }, [i18n, language, navigate]);
 

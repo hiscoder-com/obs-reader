@@ -10,8 +10,8 @@ export default function FontPage() {
     setTitle('Font');
   }, [setTitle]);
   return (
-    <>
+    <div className="mt-5 mx-auto max-w-4xl">
       <FontList />
-    </>
+    </div>
   );
 }

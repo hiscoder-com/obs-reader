@@ -12,7 +12,7 @@ const FontList = () => {
     const lsFont = localStorage.getItem('font');
     if (font !== lsFont) {
       localStorage.setItem('font', font);
-      navigate('/settings');
+      navigate(-1);
     }
   }, [font, navigate]);
   return (

@@ -10,7 +10,7 @@ export default function LanguagePage() {
     setTitle('Language');
   }, [setTitle]);
   return (
-    <Block>
+    <Block className="mt-5 mx-auto max-w-4xl">
       <LanguageList />
     </Block>
   );

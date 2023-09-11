@@ -5,7 +5,7 @@ import { Block } from 'konsta/react';
 export default function MainPage() {
   const [story, setStory] = useState('01');
   return (
-    <Block>
+    <Block className="mt-5 mx-auto max-w-4xl">
       <h1>Open Bible Stories</h1>
       <div className="card">
         <UploadResources />

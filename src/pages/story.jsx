@@ -31,6 +31,7 @@ export default function StoryPage() {
   useEffect(() => {
     setStoryJson({});
     setSubtitle('...');
+    localStorage.setItem('story', story);
     axios
       .get(
         'https://git.door43.org/' +
@@ -47,6 +48,7 @@ export default function StoryPage() {
 
   return (
     <Block
+      className="mt-5 mx-auto max-w-4xl"
       style={{
         fontSize: `${parseInt(fontSize)}px`,
         lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,

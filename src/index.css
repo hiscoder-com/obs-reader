@@ -1,26 +1,62 @@
 @font-face {
-  font-family: 'MarckScript';
+  font-family: 'Roboto Flex';
   font-style: normal;
   font-weight: normal;
-  src: url(/fonts/MarckScript-Regular.woff) format('woff');
+  src: url(/fonts/RobotoFlex-Regular.woff) format('woff');
 }
 @font-face {
-  font-family: 'DavidLibre';
+  font-family: 'Source Serif 4';
   font-style: italic;
   font-weight: normal;
-  src: url(/fonts/DavidLibre-Italic.woff) format('woff');
+  src: url(/fonts/SourceSerif4-Italic.woff) format('woff');
 }
 @font-face {
-  font-family: 'DavidLibre';
+  font-family: 'Source Serif 4';
   font-style: normal;
   font-weight: bold;
-  src: url(/fonts/DavidLibre-Bold.woff) format('woff');
+  src: url(/fonts/SourceSerif4-Bold.woff) format('woff');
 }
 @font-face {
-  font-family: 'DavidLibre';
+  font-family: 'Source Serif 4';
   font-style: normal;
   font-weight: normal;
-  src: url(/fonts/DavidLibre-Regular.woff) format('woff');
+  src: url(/fonts/SourceSerif4-Regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: normal;
+  src: url(/fonts/Literata-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: bold;
+  src: url(/fonts/Literata-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/fonts/Literata-Regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: italic;
+  font-weight: normal;
+  src: url(/fonts/FiraSans-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: bold;
+  src: url(/fonts/FiraSans-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/fonts/FiraSans-Regular.woff) format('woff');
 }
 @font-face {
   font-family: 'Roboto';
