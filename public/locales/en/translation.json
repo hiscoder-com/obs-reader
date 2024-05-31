@@ -1,7 +1,7 @@
 {
   "Appearance": "Appearance",
   "Back": "Back",
-  "ClearCache": "Clear Cache",
+  "ClearCache": "Clear All Cache",
   "chooseLanguage": "Choose Language",
   "Data": "Data",
   "DataRemoved": "All data will be deleted. Are you sure?",
@@ -19,6 +19,7 @@
     "uk": "Українська",
     "uz": "Oʻzbek, Ўзбек, أۇزبېك‎"
   },
+  "loaded": "loaded",
   "LoadFromDevice": "Load from Device",
   "LoadFromInternet": "Load from Internet",
   "Loading...": "Loading...",

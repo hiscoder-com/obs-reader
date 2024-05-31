@@ -58,7 +58,7 @@ export const fontSizeState = atom({
   default: defaultFontSize,
 });
 
-let defaultStory = 0;
+let defaultStory = '01';
 if (!localStorage.getItem('story')) {
   localStorage.setItem('story', defaultStory);
 } else {

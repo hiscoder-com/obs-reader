@@ -21,7 +21,7 @@ export default function Main() {
           innerClassName="my-0 mx-auto max-w-4xl"
           left={
             history.pathname !== '/' ? (
-              <NavbarBackLink showText={false} onClick={() => navigate('/')} />
+              <NavbarBackLink showText={false} onClick={() => navigate(-1)} />
             ) : (
               <></>
             )

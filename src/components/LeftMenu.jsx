@@ -2,14 +2,15 @@ import { BlockTitle, List, ListItem, Page, Panel } from 'konsta/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
-import { languageState } from '../atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { languageState, storyState } from '../atoms';
 import axios from 'axios';
 import { langList } from '../constants';
 
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [story, setStory] = useRecoilState(storyState);
   const language = useRecoilValue(languageState);
   const [stories, setStories] = useState('');
   useEffect(() => {
@@ -29,8 +30,12 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
             <ListItem
               key={index}
               component={RouterLink}
-              title={_.title}
-              onClick={() => setLeftPanelOpened(false)}
+              title={<div className={_.file === story ? 'font-bold' : ''}>{_.title}</div>}
+              onClick={() => {
+                localStorage.setItem('story', _.file);
+                setStory(_.file);
+                setLeftPanelOpened(false)
+              }}
               to={`/${language}/${_.file}`}
             />
           ))
@@ -40,7 +45,7 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
         navigate('/', { replace: true });
       });
 
-  }, [language, navigate, setLeftPanelOpened, t]);
+  }, [language, navigate, setLeftPanelOpened, setStory, story, t]);
   return (
     <Panel
       side="left"

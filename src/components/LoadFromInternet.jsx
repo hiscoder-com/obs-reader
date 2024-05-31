@@ -7,9 +7,12 @@ import axios from 'axios';
 import { loadToCache } from '../helper';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { storyState } from '../atoms';
 
 const LoadFromInternet = ({ language }) => {
   const { t } = useTranslation()
+  const story = useRecoilValue(storyState);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +27,7 @@ const LoadFromInternet = ({ language }) => {
       console.log(err);
     }).finally(() => {
       setLoading(false);
-      navigate(`/${language}/01`);
+      navigate(`/${language}/${story}`);
     })
   };
 

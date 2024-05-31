@@ -5,9 +5,12 @@ import { loadToCache } from '../helper';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { storyState } from '../atoms';
 
 const LoadFromDevice = ({ language }) => {
   const { t } = useTranslation()
+  const story = useRecoilValue(storyState);
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const onChange = (evt) => {
@@ -18,7 +21,7 @@ const LoadFromDevice = ({ language }) => {
       reader.onload = async function () {
         await loadToCache(reader.result, language);
         setLoading(false);
-        navigate(`/${language}/01`);
+        navigate(`/${language}/${story}`);
       };
       reader.readAsArrayBuffer(file);
     } catch (err) {
