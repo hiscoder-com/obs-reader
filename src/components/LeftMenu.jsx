@@ -1,5 +1,5 @@
 import { BlockTitle, List, ListItem, Page, Panel } from 'konsta/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
@@ -9,6 +9,7 @@ import { langList } from '../constants';
 
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const language = useRecoilValue(languageState);
   const [stories, setStories] = useState('');
   useEffect(() => {
@@ -34,9 +35,12 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
             />
           ))
         );
+      }).catch((err) => {
+        console.log(err);
+        navigate('/', { replace: true });
       });
 
-  }, [language, setLeftPanelOpened, t]);
+  }, [language, navigate, setLeftPanelOpened, t]);
   return (
     <Panel
       side="left"

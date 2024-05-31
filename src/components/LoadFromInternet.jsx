@@ -30,7 +30,7 @@ const LoadFromInternet = ({ language }) => {
 
   return (
     <>
-      <Card className='flex items-center flex-col' header={t('LoadFromInternet')}>
+      <Card className='flex items-center flex-col' header={<p className='text-lg'>{t('LoadFromInternet')}</p>}>
         <div onClick={handleLoad} className={`rounded-full border-2 w-18 h-18 flex justify-center items-center ${loading ? 'border-gray-500 text-gray-500  animate-pulse cursor-wait' : ' cursor-pointer border-primary text-primary'}`}>
           <Icon ios={<CloudDownload className="w-7 h-7" />}
             material={<MdCloudDownload className="w-7 h-7" />} />

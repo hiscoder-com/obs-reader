@@ -15,14 +15,19 @@ export default function Main() {
       <Page>
         <Navbar
           title={title && t(title)}
+          titleFontSizeMaterial="17"
+          titleClassName="truncate !static !-translate-x-0 !-translate-y-0"
           className="top-0 sticky"
           innerClassName="my-0 mx-auto max-w-4xl"
           left={
             history.pathname !== '/' ? (
-              <NavbarBackLink text={t('Back')} onClick={() => navigate('/')} />
+              <NavbarBackLink showText={false} onClick={() => navigate('/')} />
             ) : (
               <></>
             )
+          }
+          right={
+            <></>
           }
         />
         <Outlet />

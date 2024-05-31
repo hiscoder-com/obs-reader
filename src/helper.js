@@ -67,7 +67,6 @@ const getCorrectNamesFromZip = async (files, language) => {
       if (fileData.dir || fileData.name.substring(fileData.name.length - 3) !== '.md')
         continue;
       const fileName = fileData.name.split('/').pop();
-      console.log(fileName)
       if (isNaN(parseInt(fileName))) continue;
       try {
         const content = await fileData.async('string');
@@ -77,8 +76,8 @@ const getCorrectNamesFromZip = async (files, language) => {
           fileName,
           content
         );
-      } catch (e) {
-        console.log({ error: e });
+      } catch (err) {
+        console.log(err);
       }
     }
   }

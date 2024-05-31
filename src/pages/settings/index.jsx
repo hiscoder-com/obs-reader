@@ -17,7 +17,7 @@ import {
   titleState,
 } from '../../atoms';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { storage } from '../../helper';
 import { } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import SettingsExample from '../../components/SettingsExample';
 
 export default function SettingsPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate()
   const setTitle = useSetRecoilState(titleState);
   const language = useRecoilValue(languageState);
   const font = useRecoilValue(fontState);
@@ -48,6 +49,8 @@ export default function SettingsPage() {
       })
       .catch(function (err) {
         console.log(err);
+      }).finally(() => {
+        navigate('/');
       });
   };
 
@@ -114,16 +117,6 @@ export default function SettingsPage() {
           title={t('Language')}
           after={t(`languages.${language}`)}
         />
-        <ListButton
-          component="div"
-          onClick={() => {
-          }}
-        >
-          {t('Load from internet')}
-        </ListButton>
-        <ListButton component="div" onClick={() => setConfirmOpened(true)}>
-          {t('Load from device')}
-        </ListButton>
         <ListButton
           className="k-color-brand-red"
           component="div"

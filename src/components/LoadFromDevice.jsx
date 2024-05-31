@@ -21,15 +21,15 @@ const LoadFromDevice = ({ language }) => {
         navigate(`/${language}/01`);
       };
       reader.readAsArrayBuffer(file);
-    } catch (error) {
+    } catch (err) {
       setLoading(false);
-      console.log({ error })
+      console.log(err)
     }
   };
 
   return (
     <>
-      <Card className='flex items-center flex-col' header={t('LoadFromDevice')}>
+      <Card className='flex items-center flex-col' header={<p className='text-lg'>{t('LoadFromDevice')}</p>}>
         <label htmlFor="file">
           <div className={`rounded-full border-2 w-18 h-18 flex justify-center items-center ${loading ? 'border-gray-500 text-gray-500  animate-pulse cursor-wait' : ' cursor-pointer border-primary text-primary'}`}>
             <Icon ios={<Folder className="w-7 h-7" />}

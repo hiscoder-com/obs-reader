@@ -45,8 +45,11 @@ export default function StoryPage() {
         const jsonData = MdToJson(res.data);
         setStoryJson(jsonData);
         setSubtitle(jsonData.title);
+      }).catch((err) => {
+        console.log(err);
+        navigate('/', { replace: true });
       });
-  }, [lang, setSubtitle, story]);
+  }, [lang, navigate, setSubtitle, story]);
 
   return (
     <Block
