@@ -14,12 +14,17 @@ const LoadFromDevice = ({ language }) => {
     setLoading(true);
     let file = evt.target.files[0];
     let reader = new FileReader();
-    reader.onload = async function () {
-      await loadToCache(reader.result, language);
-      navigate(`/${language}/01`);
+    try {
+      reader.onload = async function () {
+        await loadToCache(reader.result, language);
+        setLoading(false);
+        navigate(`/${language}/01`);
+      };
+      reader.readAsArrayBuffer(file);
+    } catch (error) {
       setLoading(false);
-    };
-    reader.readAsArrayBuffer(file);
+      console.log({ error })
+    }
   };
 
   return (

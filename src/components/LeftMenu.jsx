@@ -16,7 +16,11 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
       .get(
         'https://git.door43.org/' +
         langList[language] +
-        'toc'
+        'toc.json', {
+        headers: {
+          Accept: 'application/json',
+        }
+      }
       )
       .then(({ data }) => {
         setStories(

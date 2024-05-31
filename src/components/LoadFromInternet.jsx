@@ -18,8 +18,8 @@ const LoadFromInternet = ({ language }) => {
     axios.get(`https://git.door43.org/${langList[language].split('/raw/')[0]}/archive/master.zip`, {
       responseType: 'arraybuffer',
       cache: false
-    }).then(res => {
-      loadToCache(res.data, language);
+    }).then(async res => {
+      await loadToCache(res.data, language);
     }).catch(err => {
       console.log(err);
     }).finally(() => {
