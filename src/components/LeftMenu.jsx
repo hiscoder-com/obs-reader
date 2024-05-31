@@ -4,25 +4,34 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { languageState } from '../atoms';
+import axios from 'axios';
+import { langList } from '../constants';
 
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
   const language = useRecoilValue(languageState);
   const [stories, setStories] = useState('');
   useEffect(() => {
-    setStories(
-      Array(50)
-        .fill()
-        .map((_, index) => (
-          <ListItem
-            key={index}
-            component={RouterLink}
-            title={t('Story' + (index + 1).toString().padStart(2, '0'))}
-            onClick={() => setLeftPanelOpened(false)}
-            to={`/${language}/${(index + 1).toString().padStart(2, '0')}`}
-          />
-        ))
-    );
+    axios
+      .get(
+        'https://git.door43.org/' +
+        langList[language] +
+        'toc'
+      )
+      .then(({ data }) => {
+        setStories(
+          JSON.parse(data).map((_, index) => (
+            <ListItem
+              key={index}
+              component={RouterLink}
+              title={_.title}
+              onClick={() => setLeftPanelOpened(false)}
+              to={`/${language}/${_.file}`}
+            />
+          ))
+        );
+      });
+
   }, [language, setLeftPanelOpened, t]);
   return (
     <Panel

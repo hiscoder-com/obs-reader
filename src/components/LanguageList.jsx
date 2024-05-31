@@ -28,7 +28,7 @@ const LanguageList = () => {
         <ListItem
           key={name}
           label
-          title={t(name)}
+          title={t(`languages.${name}`)}
           media={
             <Radio
               component="div"

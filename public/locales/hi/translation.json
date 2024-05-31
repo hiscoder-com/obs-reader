@@ -1,0 +1,33 @@
+{
+  "Appearance": "Appearance",
+  "Back": "Back",
+  "ClearCache": "Clear Cache",
+  "chooseLanguage": "Choose Language",
+  "Data": "Data",
+  "DataRemoved": "All data will be deleted. Are you sure?",
+  "Error": "Error",
+  "ErrorMessage": "Sorry, an unexpected error has occurred.",
+  "ErrorTitle": "Oops!",
+  "Font": "Font",
+  "FontSize": "Font size",
+  "Language": "Language",
+  "languages": {
+    "en": "English",
+    "ru": "Русский",
+    "kk": "Қазақ",
+    "hi": "हिन्दी (Hindi)",
+    "uk": "Українська",
+    "uz": "Oʻzbek, Ўзбек, أۇزبېك‎"
+  },
+  "LoadFromDevice": "Load from Device",
+  "LoadFromInternet": "Load from Internet",
+  "Loading...": "Loading...",
+  "LoadOBS": "Load stories",
+  "No": "No",
+  "OpenBibleStories": "ओपन बाइबल स्टोरीज़",
+  "Settings": "Settings",
+  "ShowImages": "Show images",
+  "Story-1-1": "इस प्रकार से आरम्भ में परमेश्वर ने सब चीजों की सृष्टि की। उसने छः दिनों में संसार की और जो कुछ उसमें है उन सब की सृष्टि की। परमेश्वर द्वारा पृथ्वी की रचना के बाद वह अंधकारमय और खाली थी, क्योंकि अभी तक परमेश्वर ने उसमें किसी भी चीज को नहीं बनाया था। परन्तु परमेश्वर का आत्मा पानी के ऊपर मंडराता था।",
+  "TOC": "Table of contents",
+  "Yes": "Yes"
+}

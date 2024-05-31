@@ -37,9 +37,9 @@ export default function StoryPage() {
     axios
       .get(
         'https://git.door43.org/' +
-          langList[lang] +
-          String(story).padStart(2, '0') +
-          '.md'
+        langList[lang] +
+        String(story).padStart(2, '0') +
+        '.md'
       )
       .then((res) => {
         const jsonData = MdToJson(res.data);
@@ -61,7 +61,7 @@ export default function StoryPage() {
         storyJson?.verseObjects.map((verse) => (
           <Fragment key={verse.verse}>
             {showImages === '1' ? (
-              <img src={`https://cdn.door43.org/obs/jpg/360px/${verse.path}`} />
+              <img src={`/images/${verse.path}`} />
             ) : (
               ''
             )}

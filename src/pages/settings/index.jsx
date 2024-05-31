@@ -19,7 +19,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { storage } from '../../helper';
-import {} from 'i18next';
+import { } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import SettingsExample from '../../components/SettingsExample';
 
@@ -112,22 +112,11 @@ export default function SettingsPage() {
           linkComponent={Link}
           linkProps={{ to: '/settings/language' }}
           title={t('Language')}
-          after={t(language)}
+          after={t(`languages.${language}`)}
         />
         <ListButton
           component="div"
           onClick={() => {
-            /**
-           * axios
-      .get(
-        'https://git.door43.org/' +
-          langList[lang] +
-          String(story).padStart(2, '0') +
-          '.md'
-      )
-
-      надо в фоне запустить прогрузку всех этих юрл чтобы в итоге создался кеш
-           */
           }}
         >
           {t('Load from internet')}
