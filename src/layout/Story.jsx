@@ -1,7 +1,7 @@
 import { App, Icon, Link, Navbar, Page } from 'konsta/react';
 import { Outlet, Link as RouterLink } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { subtitleState } from '../atoms';
+import { darkModeState, subtitleState } from '../atoms';
 import { useState } from 'react';
 import { getTheme } from '../helper';
 import LeftMenu from '../components/LeftMenu';
@@ -11,10 +11,11 @@ import { GearAlt, Menu } from 'framework7-icons/react';
 
 export default function Story() {
   const subtitle = useRecoilValue(subtitleState);
+  const darkMode = useRecoilValue(darkModeState);
   const { t } = useTranslation();
   const [leftPanelOpened, setLeftPanelOpened] = useState(false);
   return (
-    <App theme={getTheme()}>
+    <App theme={getTheme()} className={darkMode === '1' ? 'dark theme-dark' : ''}>
       <Page>
         <Navbar
           title={t('OpenBibleStories')}

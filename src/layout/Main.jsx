@@ -1,7 +1,7 @@
 import { App, Navbar, NavbarBackLink, Page } from 'konsta/react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { titleState } from '../atoms';
+import { darkModeState, titleState } from '../atoms';
 import { useRecoilValue } from 'recoil';
 import { getTheme } from '../helper';
 
@@ -10,8 +10,9 @@ export default function Main() {
   const navigate = useNavigate();
   const history = useLocation();
   const title = useRecoilValue(titleState);
+  const darkMode = useRecoilValue(darkModeState);
   return (
-    <App theme={getTheme()}>
+    <App theme={getTheme()} className={darkMode === '1' ? 'dark theme-dark' : ''}>
       <Page>
         <Navbar
           title={title && t(title)}

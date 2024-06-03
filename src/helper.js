@@ -4,7 +4,7 @@ import JSZip from 'jszip';
 import localforage from 'localforage';
 import { langList } from './constants';
 
-export const TTL = 1000 * 60 * 60 * 31;
+export const TTL = 1000 * 60 * 60 * 24 * 365;
 
 export const storage = localforage.createInstance({
   driver: [localforage.INDEXEDDB],

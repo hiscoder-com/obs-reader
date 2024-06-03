@@ -10,6 +10,7 @@ import {
 } from 'konsta/react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
+  darkModeState,
   fontSizeState,
   fontState,
   languageState,
@@ -30,6 +31,7 @@ export default function SettingsPage() {
   const language = useRecoilValue(languageState);
   const font = useRecoilValue(fontState);
   const [showImages, setShowImages] = useRecoilState(showImagesState);
+  const [darkMode, setDarkMode] = useRecoilState(darkModeState);
   const [fontSize, setFontSize] = useRecoilState(fontSizeState);
 
   useEffect(() => {
@@ -58,6 +60,14 @@ export default function SettingsPage() {
     setShowImages((prev) => {
       const newValue = prev === '1' ? '0' : '1';
       localStorage.setItem('showImages', newValue);
+      return newValue;
+    });
+  };
+
+  const darkModeHandler = () => {
+    setDarkMode((prev) => {
+      const newValue = prev === '1' ? '0' : '1';
+      localStorage.setItem('darkMode', newValue);
       return newValue;
     });
   };
@@ -103,6 +113,19 @@ export default function SettingsPage() {
               className="-my-1"
               checked={showImages === '1'}
               onChange={showImagesHandler}
+            />
+          }
+        />
+        <ListItem
+          label
+          title={t('DarkMode')}
+          component="div"
+          after={
+            <Toggle
+              component="div"
+              className="-my-1"
+              checked={darkMode === '1'}
+              onChange={darkModeHandler}
             />
           }
         />

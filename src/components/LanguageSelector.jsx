@@ -48,7 +48,7 @@ const LanguageSelector = () => {
               key={index}
               title={t(`languages.${lang}`)}
               onClick={() => onLanguageChange(lang)}
-              colors={{ primaryTextIos: availableLangs?.[index] ? '' : 'text-gray-500', primaryTextMaterial: availableLangs?.[index] ? '' : 'text-gray-500' }}
+              colors={{ primaryTextIos: availableLangs?.[index] ? '' : 'text-gray-500 dark:text-gray-400', primaryTextMaterial: availableLangs?.[index] ? '' : 'text-gray-500 dark:text-gray-400' }}
               after={availableLangs?.[index] ? t('loaded') : ''}
               link
               media={<Icon ios={<CountryIcon className="w-6 h-4" />}

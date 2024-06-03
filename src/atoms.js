@@ -69,3 +69,15 @@ export const storyState = atom({
   key: 'storyState',
   default: defaultStory,
 });
+
+let defaultDarkMode = '0';
+if (!localStorage.getItem('darkMode')) {
+  localStorage.setItem('darkMode', defaultDarkMode);
+} else {
+  defaultDarkMode = localStorage.getItem('darkMode');
+}
+
+export const darkModeState = atom({
+  key: 'darkModeState',
+  default: defaultDarkMode,
+});
