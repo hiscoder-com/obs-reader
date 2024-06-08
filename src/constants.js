@@ -1,6 +1,11 @@
 import { US as EN, RU, KZ as KK, IN as HI, UZ, UA as UK } from 'country-flag-icons/react/3x2';
 export const countries = { en: EN, ru: RU, kk: KK, hi: HI, uz: UZ, uk: UK };
 
+export const languagesApp = [
+  'en',
+  'ru',
+]
+
 export const langList = {
   ru: 'ru_gl/ru_obs/raw/branch/master/content/',
   en: 'unfoldingWord/en_obs/raw/branch/master/content/',

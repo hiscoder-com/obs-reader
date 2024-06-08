@@ -38,7 +38,7 @@ export const getTheme = () => {
   return 'material';
 };
 
-export const saveToCache = (baseUrl, fileName, content) => {
+const saveToCache = (baseUrl, fileName, content) => {
   storage.setItem(baseUrl + fileName, {
     expires: Date.now() + TTL,
     state: 'cached',
@@ -59,7 +59,7 @@ export const saveToCache = (baseUrl, fileName, content) => {
     },
   });
 };
-const getCorrectNamesFromZip = async (files, language) => {
+const getCorrectNamesFromZip = async (files, language, domain) => {
   const toc = [];
   for (const file in files) {
     if (Object.hasOwnProperty.call(files, file)) {
@@ -72,7 +72,7 @@ const getCorrectNamesFromZip = async (files, language) => {
         const content = await fileData.async('string');
         toc.push({ file: fileName.split('.')[0], title: content.split('\n')[0].split('#')[1].trim() });
         saveToCache(
-          'get+https://git.door43.org/' + langList[language],
+          'get+' + domain + langList[language],
           fileName,
           content
         );
@@ -82,14 +82,14 @@ const getCorrectNamesFromZip = async (files, language) => {
     }
   }
   saveToCache(
-    'get+https://git.door43.org/' + langList[language],
+    'get+' + domain + langList[language],
     'toc.json',
     JSON.stringify(toc)
   );
 };
 
-export const loadToCache = async (zipFile, language) => {
+export const loadToCache = async (zipFile, language, domain = 'https://git.door43.org/') => {
   const zip = new JSZip();
   const zipRes = await zip.loadAsync(zipFile);
-  await getCorrectNamesFromZip(zipRes.files, language);
+  await getCorrectNamesFromZip(zipRes.files, language, domain);
 };

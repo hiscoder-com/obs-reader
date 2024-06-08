@@ -12,7 +12,7 @@ export const fontState = atom({
   default: defaultFont,
 });
 
-let defaultLanguage = 'ru';
+let defaultLanguage = 'en';
 if (!localStorage.getItem('language')) {
   localStorage.setItem('language', defaultLanguage);
 } else {
@@ -22,6 +22,18 @@ if (!localStorage.getItem('language')) {
 export const languageState = atom({
   key: 'languageState',
   default: defaultLanguage,
+});
+
+let defaultLanguageApp = 'en';
+if (!localStorage.getItem('languageApp')) {
+  localStorage.setItem('languageApp', defaultLanguageApp);
+} else {
+  defaultLanguageApp = localStorage.getItem('languageApp');
+}
+
+export const languageAppState = atom({
+  key: 'languageAppState',
+  default: defaultLanguageApp,
 });
 
 export const subtitleState = atom({

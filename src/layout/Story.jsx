@@ -15,15 +15,16 @@ export default function Story() {
   const { t } = useTranslation();
   const [leftPanelOpened, setLeftPanelOpened] = useState(false);
   return (
-    <App theme={getTheme()} className={darkMode === '1' ? 'dark theme-dark' : ''}>
-      <Page>
+    <App theme={getTheme()} safeAreas className={darkMode === '1' ? 'dark theme-dark' : ''}>
+      <Page colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}>
         <Navbar
           title={t('OpenBibleStories')}
           subtitle={subtitle}
           titleFontSizeMaterial="17"
           titleClassName="truncate !static !transform-none"
           subtitleClassName="truncate"
-          className="top-0 sticky"
+          className="top-0 sticky border-b border-figma-border-light dark:border-figma-border-dark"
+          colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}
           innerClassName="my-0 mx-auto max-w-4xl"
           left={
             <Link navbar onClick={() => setLeftPanelOpened(true)}>

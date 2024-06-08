@@ -68,7 +68,7 @@ export default function StoryPage() {
             ) : (
               ''
             )}
-            <p className="mb-4">{verse.text}</p>
+            <p className="mb-6 mt-2">{verse.text}</p>
           </Fragment>
         ))
       ) : (

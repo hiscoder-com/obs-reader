@@ -1,4 +1,4 @@
-import { BlockTitle, List, ListItem, Page, Panel } from 'konsta/react';
+import { Icon, Link, List, ListItem, Navbar, Page, Panel } from 'konsta/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { languageState, storyState } from '../atoms';
 import axios from 'axios';
 import { langList } from '../constants';
+import { Xmark } from 'framework7-icons/react';
+import { MdClose } from 'react-icons/md';
 
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
@@ -53,9 +55,18 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
       opened={leftPanelOpened}
       onBackdropClick={() => setLeftPanelOpened(false)}
     >
-      <Page>
-        <BlockTitle>{t('TOC')}</BlockTitle>
-        <List strongIos outlineIos>
+      <Page colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}>
+        <Navbar
+          title={t('TOC')}
+          className='border-b border-figma-border-light dark:border-figma-border-dark'
+          colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}
+          right={
+            <Link navbar onClick={() => setLeftPanelOpened(false)}>
+              <Icon ios={<Xmark className="w-7 h-7" />} material={<MdClose className="w-6 h-6" />} />
+            </Link>
+          }
+        />
+        <List margin='mt-0 mb-8'>
           {stories}
         </List>
       </Page>

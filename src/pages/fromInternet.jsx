@@ -4,7 +4,7 @@ import LanguageSelector from '../components/LanguageSelector';
 import { useSetRecoilState } from 'recoil';
 import { titleState } from '../atoms';
 
-export default function MainLanguagePage() {
+export default function FromInternetPage() {
   const setTitle = useSetRecoilState(titleState);
 
   useEffect(() => {

@@ -13,6 +13,7 @@ import {
   darkModeState,
   fontSizeState,
   fontState,
+  languageAppState,
   languageState,
   showImagesState,
   titleState,
@@ -29,6 +30,7 @@ export default function SettingsPage() {
   const navigate = useNavigate()
   const setTitle = useSetRecoilState(titleState);
   const language = useRecoilValue(languageState);
+  const languageApp = useRecoilValue(languageAppState);
   const font = useRecoilValue(fontState);
   const [showImages, setShowImages] = useRecoilState(showImagesState);
   const [darkMode, setDarkMode] = useRecoilState(darkModeState);
@@ -79,6 +81,15 @@ export default function SettingsPage() {
 
   return (
     <div className="mt-5 mx-auto max-w-4xl">
+      <List strongIos outlineIos insetIos>
+        <ListItem
+          link
+          linkComponent={Link}
+          linkProps={{ to: '/settings/language-app' }}
+          title={t('LanguageApp')}
+          after={t(`languages.${languageApp}`)}
+        />
+      </List>
       <BlockTitle>{t('Appearance')}</BlockTitle>
       <List strongIos outlineIos insetIos>
         <ListItem
@@ -96,24 +107,11 @@ export default function SettingsPage() {
               <Range
                 value={fontSize}
                 step={1}
-                min={12}
-                max={30}
+                min={10}
+                max={36}
                 onChange={fontSizeHandler}
               />
             </>
-          }
-        />
-        <ListItem
-          label
-          title={t('ShowImages')}
-          component="div"
-          after={
-            <Toggle
-              component="div"
-              className="-my-1"
-              checked={showImages === '1'}
-              onChange={showImagesHandler}
-            />
           }
         />
         <ListItem
@@ -126,6 +124,19 @@ export default function SettingsPage() {
               className="-my-1"
               checked={darkMode === '1'}
               onChange={darkModeHandler}
+            />
+          }
+        />
+        <ListItem
+          label
+          title={t('ShowImages')}
+          component="div"
+          after={
+            <Toggle
+              component="div"
+              className="-my-1"
+              checked={showImages === '1'}
+              onChange={showImagesHandler}
             />
           }
         />

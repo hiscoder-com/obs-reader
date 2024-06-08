@@ -12,13 +12,14 @@ export default function Main() {
   const title = useRecoilValue(titleState);
   const darkMode = useRecoilValue(darkModeState);
   return (
-    <App theme={getTheme()} className={darkMode === '1' ? 'dark theme-dark' : ''}>
-      <Page>
+    <App theme={getTheme()} safeAreas className={darkMode === '1' ? 'dark theme-dark' : ''}>
+      <Page colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}>
         <Navbar
           title={title && t(title)}
           titleFontSizeMaterial="17"
           titleClassName="truncate !static !-translate-x-0 !-translate-y-0"
-          className="top-0 sticky"
+          className="top-0 sticky border-b border-figma-border-light dark:border-figma-border-dark"
+          colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}
           innerClassName="my-0 mx-auto max-w-4xl"
           left={
             history.pathname !== '/' ? (

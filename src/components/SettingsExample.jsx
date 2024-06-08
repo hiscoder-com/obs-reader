@@ -10,16 +10,15 @@ const SettingsExample = () => {
   const fontSize = useRecoilValue(fontSizeState);
   const showImages = useRecoilValue(showImagesState);
   return (
-    <Card>
+    <Card raised colors={{ bgIos: 'bg-figma-bg-card-light dark:bg-figma-bg-card-dark', bgMaterial: 'bg-figma-bg-card-light dark:bg-figma-bg-card-dark' }}>
       {showImages === '1' ? (
         <img
-          className="pb-2"
           src="/images/obs-en-01-01.jpg"
         />
       ) : (
         ''
       )}
-      <p
+      <p className='my-2'
         style={{
           fontSize: `${parseInt(fontSize)}px`,
           lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,

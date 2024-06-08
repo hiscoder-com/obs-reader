@@ -2,7 +2,8 @@
   "Appearance": "Внешний вид",
   "Back": "Назад",
   "ClearCache": "Очистить весь кеш",
-  "chooseLanguage": "Выберите язык",
+  "chooseLanguage": "Выберите язык историй",
+  "chooseLanguageApp": "Выберите язык приложения",
   "DarkMode": "Темная тема",
   "Data": "Данные",
   "DataRemoved": "Все данные будут удалены. Вы уверены?",
@@ -12,6 +13,7 @@
   "Font": "Шрифт",
   "FontSize": "Размер шрифта",
   "Language": "Язык",
+  "LanguageApp": "Язык приложения",
   "languages": {
     "en": "English",
     "ru": "Русский",
