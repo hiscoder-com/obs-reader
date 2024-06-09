@@ -3,7 +3,7 @@ import konstaConfig from 'konsta/config';
 export default konstaConfig({
   konsta: {
     colors: {
-      primary: '#685f5d',
+      primary: '#506567',
       // custom colors used for Konsta UI components theming
       'brand-red': '#ff0000',
     },
