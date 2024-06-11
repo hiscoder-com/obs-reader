@@ -142,7 +142,7 @@ export default function SettingsPage() {
         />
       </List>
       <SettingsExample />
-      <BlockTitle>{t('Data')}</BlockTitle>
+      <BlockTitle>{t('Materials')}</BlockTitle>
       <List strongIos outlineIos insetIos>
         <ListItem
           link

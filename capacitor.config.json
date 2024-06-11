@@ -1,6 +1,6 @@
 {
-  "appId": "com.openbibletest.capacitor",
-  "appName": "OpenBibleStory",
+  "appId": "com.texttree.obs",
+  "appName": "OpenBibleStories",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"

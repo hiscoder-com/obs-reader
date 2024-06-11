@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">side-loading</string>
-    <string name="title_activity_main">side-loading</string>
-    <string name="package_name">com.openbibletest.capacitor</string>
-    <string name="custom_url_scheme">com.openbibletest.capacitor</string>
+    <string name="app_name">Open Bible Stories</string>
+    <string name="title_activity_main">OBS</string>
+    <string name="package_name">com.texttree.obs</string>
+    <string name="custom_url_scheme">com.texttree.obs</string>
 </resources>

@@ -5,7 +5,6 @@
   "chooseLanguage": "Choose the language of the stories",
   "chooseLanguageApp": "Select the application language",
   "DarkMode": "Dark Mode",
-  "Data": "Data",
   "DataRemoved": "All data will be deleted. Are you sure?",
   "Error": "Error",
   "ErrorMessage": "Sorry, an unexpected error has occurred.",
@@ -14,6 +13,8 @@
   "FontSize": "Font size",
   "Language": "Language",
   "LanguageApp": "Application language",
+  "languageCode": "Language code",
+  "languageName": "Language name",
   "languages": {
     "en": "English",
     "ru": "Русский",
@@ -27,11 +28,13 @@
   "LoadFromInternet": "Load from Internet",
   "Loading...": "Loading...",
   "LoadOBS": "Load stories",
+  "Materials": "Materials",
   "No": "No",
   "OpenBibleStories": "Open Bible Stories",
   "Settings": "Settings",
   "ShowImages": "Show images",
   "Story-1-1": "This is how God made everything in the beginning. He created the universe and everything in it in six days. After God created the earth it was dark and empty because he had not yet formed anything in it. But God’s Spirit was there over the water.",
   "TOC": "Table of contents",
+  "uploadArchive": "Choose an archive",
   "Yes": "Yes"
 }
