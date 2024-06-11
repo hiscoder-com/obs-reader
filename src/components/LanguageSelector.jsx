@@ -63,7 +63,6 @@ const LanguageSelector = () => {
           </Block>
         </> :
         <>
-          <BlockTitle>{t('chooseLanguage')}</BlockTitle>
           <List>
             {languages.map((lang, index) => {
               const CountryIcon = countries[lang]

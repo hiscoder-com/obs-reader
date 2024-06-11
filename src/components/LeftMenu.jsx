@@ -2,7 +2,7 @@ import { Icon, Link, List, ListItem, Navbar, Page, Panel } from 'konsta/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { languageState, storyState } from '../atoms';
 import axios from 'axios';
 import { langList } from '../constants';
@@ -13,13 +13,14 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [story, setStory] = useRecoilState(storyState);
-  const language = useRecoilValue(languageState);
+  const [language, setLanguage] = useRecoilState(languageState);
   const [stories, setStories] = useState('');
   useEffect(() => {
+    const baseUrl = language.startsWith('user-') ? 'https://git.door43.org/bsa/' : 'https://git.door43.org/'
     axios
       .get(
-        'https://git.door43.org/' +
-        langList[language] +
+        baseUrl +
+        (langList[language] ?? language + '/') +
         'toc.json', {
         headers: {
           Accept: 'application/json',
@@ -44,10 +45,12 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
         );
       }).catch((err) => {
         console.log(err);
+        localStorage.setItem('language', '');
+        setLanguage('');
         navigate('/', { replace: true });
       });
 
-  }, [language, navigate, setLeftPanelOpened, setStory, story, t]);
+  }, [language, navigate, setLanguage, setLeftPanelOpened, setStory, story, t]);
   return (
     <Panel
       side="left"

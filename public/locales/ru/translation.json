@@ -1,4 +1,6 @@
 {
+  "add": "Добавить",
+  "addNew": "Добавить",
   "Appearance": "Внешний вид",
   "Back": "Назад",
   "ClearCache": "Очистить весь кеш",
@@ -11,6 +13,8 @@
   "ErrorTitle": "Извините!",
   "Font": "Шрифт",
   "FontSize": "Размер шрифта",
+  "fromDevice": "С устройства",
+  "fromInternet": "С интернета",
   "Language": "Язык",
   "LanguageApp": "Язык приложения",
   "languageCode": "Код языка",

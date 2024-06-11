@@ -1,4 +1,6 @@
 {
+  "add": "Add",
+  "addNew": "Add New",
   "Appearance": "Appearance",
   "Back": "Back",
   "ClearCache": "Clear All Cache",
@@ -11,6 +13,8 @@
   "ErrorTitle": "Oops!",
   "Font": "Font",
   "FontSize": "Font size",
+  "fromDevice": "From Device",
+  "fromInternet": "From Internet",
   "Language": "Language",
   "LanguageApp": "Application language",
   "languageCode": "Language code",

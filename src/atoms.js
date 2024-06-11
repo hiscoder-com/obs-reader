@@ -12,7 +12,7 @@ export const fontState = atom({
   default: defaultFont,
 });
 
-let defaultLanguage = 'en';
+let defaultLanguage = '';
 if (!localStorage.getItem('language')) {
   localStorage.setItem('language', defaultLanguage);
 } else {

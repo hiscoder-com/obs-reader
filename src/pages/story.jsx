@@ -34,10 +34,11 @@ export default function StoryPage() {
     setStoryJson({});
     setSubtitle('...');
     localStorage.setItem('story', story);
+    const baseUrl = lang.startsWith('user-') ? 'https://git.door43.org/bsa/' : 'https://git.door43.org/'
     axios
       .get(
-        'https://git.door43.org/' +
-        langList[lang] +
+        baseUrl +
+        (langList[lang] ?? lang + '/') +
         String(story).padStart(2, '0') +
         '.md'
       )

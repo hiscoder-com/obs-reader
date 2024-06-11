@@ -20,16 +20,18 @@ import {
 } from '../../atoms';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { storage } from '../../helper';
+import { langStorage, storage } from '../../helper';
 import { } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import SettingsExample from '../../components/SettingsExample';
+import { langList } from '../../constants';
 
 export default function SettingsPage() {
   const { t } = useTranslation();
   const navigate = useNavigate()
   const setTitle = useSetRecoilState(titleState);
   const language = useRecoilValue(languageState);
+  const [langName, setLangName] = useState('')
   const languageApp = useRecoilValue(languageAppState);
   const font = useRecoilValue(fontState);
   const [showImages, setShowImages] = useRecoilState(showImagesState);
@@ -40,22 +42,28 @@ export default function SettingsPage() {
     setTitle('Settings');
   }, [setTitle]);
 
+  useEffect(() => {
+    langList[language] ? setLangName(t(`languages.${language}`)) : langStorage.getItem(language.slice('5')).then(res => setLangName(res))
+  }, [language, t])
+
   const [confirmOpened, setConfirmOpened] = useState(false);
 
-  const clearCache = () => {
+  const clearCache = async () => {
     setConfirmOpened(false);
-    storage
-      .keys()
-      .then(function (keys) {
-        for (const el of keys) {
-          storage.removeItem(el);
-        }
-      })
-      .catch(function (err) {
-        console.log(err);
-      }).finally(() => {
-        navigate('/');
-      });
+    try {
+      let keys = await langStorage.keys()
+      for (const el of keys) {
+        await langStorage.removeItem(el);
+      }
+      keys = []
+      keys = await storage.keys()
+      for (const el of keys) {
+        await storage.removeItem(el);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    navigate('/', { replace: true });
   };
 
   const showImagesHandler = () => {
@@ -149,7 +157,7 @@ export default function SettingsPage() {
           linkComponent={Link}
           linkProps={{ to: '/settings/language' }}
           title={t('Language')}
-          after={t(`languages.${language}`)}
+          after={langName}
         />
         <ListButton
           className="k-color-brand-red"

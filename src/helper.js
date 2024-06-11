@@ -11,6 +11,11 @@ export const storage = localforage.createInstance({
   name: 'web-cache',
 });
 
+export const langStorage = localforage.createInstance({
+  driver: [localforage.INDEXEDDB],
+  name: 'local-lang-cache',
+});
+
 const localForage = buildStorage({
   find: (key) => {
     return storage.getItem(key);
@@ -38,8 +43,8 @@ export const getTheme = () => {
   return 'material';
 };
 
-const saveToCache = (baseUrl, fileName, content) => {
-  storage.setItem(baseUrl + fileName, {
+const saveToCache = async (baseUrl, fileName, content) => {
+  await storage.setItem(baseUrl + fileName, {
     expires: Date.now() + TTL,
     state: 'cached',
     ttl: TTL,
@@ -71,8 +76,8 @@ const getCorrectNamesFromZip = async (files, language, domain) => {
       try {
         const content = await fileData.async('string');
         toc.push({ file: fileName.split('.')[0], title: content.split('\n')[0].split('#')[1].trim() });
-        saveToCache(
-          'get+' + domain + langList[language],
+        await saveToCache(
+          'get+' + domain + (langList[language] ?? language+'/'),
           fileName,
           content
         );
@@ -81,8 +86,8 @@ const getCorrectNamesFromZip = async (files, language, domain) => {
       }
     }
   }
-  saveToCache(
-    'get+' + domain + langList[language],
+  await saveToCache(
+    'get+' + domain + (langList[language] ?? language+'/'),
     'toc.json',
     JSON.stringify(toc)
   );
