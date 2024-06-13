@@ -26,7 +26,7 @@ export default function StoryPage() {
   const [storyJson, setStoryJson] = useState({});
   useEffect(() => {
     if (lang !== language) {
-      navigate(`/${language}/${story}`);
+      //navigate(`/${language}/${story}`);
     }
   }, [lang, language, navigate, story]);
 
@@ -38,7 +38,7 @@ export default function StoryPage() {
     axios
       .get(
         baseUrl +
-        (langList[lang] ?? lang + '/') +
+        (langList[lang] ?? (lang + '/')) +
         String(story).padStart(2, '0') +
         '.md'
       )

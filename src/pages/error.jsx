@@ -3,14 +3,18 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BaseLayout from '../components/BaseLayout';
 
-// TODO добавить кнопку, по нажатию на которую будет сбрасываться весь кеш приложения, все материалы и все настройки
+// TODO added button for removing all settings
 export default function Settings() {
   const { t } = useTranslation();
+  localStorage.setItem('language', '');
   return (
     <BaseLayout>
       <Navbar
         title={t('Error')}
-        className="top-0 sticky"
+        titleFontSizeMaterial="17"
+        titleClassName="truncate !static !-translate-x-0 !-translate-y-0"
+        className="top-0 sticky border-b border-figma-border-light dark:border-figma-border-dark"
+        colors={{ bgIos: 'bg-figma-bg-light dark:bg-figma-bg-dark', bgMaterial: 'bg-figma-bg-light dark:bg-figma-bg-dark' }}
         innerClassName="my-0 mx-auto max-w-4xl"
         left={<NavbarBackLink component={RouterLink} text={t('Back')} to={'/'} />}
       />

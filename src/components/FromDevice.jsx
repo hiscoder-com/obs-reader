@@ -43,7 +43,9 @@ export default function FromDevice() {
       <BlockTitle withBlock={false} className='!px-0 !mt-2'>{t('languageName')}</BlockTitle>
       <input type="text" id='lang_name' name="lang_name" className='w-full mb-3 text-base material:text-sm appearance-none transition-colors focus:outline-none select-none bg-figma-bg-card-light dark:bg-figma-bg-card-dark ios:rounded material:rounded-lg material:font-medium ios:duration-100 material:duration-300 px-4 ios:py-0.5 material:py-2.5' value={langName} onChange={(e) => setLangName(e.target.value)} />
       <BlockTitle withBlock={false} className='!px-0 !mt-2'>{t('languageCode')}</BlockTitle>
-      <input type="text" id='lang_name' name="lang_name" className='w-full mb-3 text-base material:text-sm appearance-none transition-colors focus:outline-none select-none bg-figma-bg-card-light dark:bg-figma-bg-card-dark ios:rounded material:rounded-lg material:font-medium ios:duration-100 material:duration-300 px-4 ios:py-0.5 material:py-2.5' value={langCode} onChange={(e) => setLangCode(e.target.value)} />
+      <input type="text" id='lang_name' name="lang_name" className='w-full mb-3 text-base material:text-sm appearance-none transition-colors focus:outline-none select-none bg-figma-bg-card-light dark:bg-figma-bg-card-dark ios:rounded material:rounded-lg material:font-medium ios:duration-100 material:duration-300 px-4 ios:py-0.5 material:py-2.5' value={langCode} onChange={(e) => {
+        setLangCode(e.target.value.toLocaleLowerCase().match(/[a-z0-9\\-]{0,10}/))
+      }} pattern='[a-z0-9\-]{2,10}' />
       <BlockTitle withBlock={false} className='!px-0 !mt-2'>{t('uploadArchive')}</BlockTitle>
       <input
         type="file"

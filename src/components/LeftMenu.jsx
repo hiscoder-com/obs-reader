@@ -20,7 +20,7 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
     axios
       .get(
         baseUrl +
-        (langList[language] ?? language + '/') +
+        (langList[language] ?? (language + '/')) +
         'toc.json', {
         headers: {
           Accept: 'application/json',
