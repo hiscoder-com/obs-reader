@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Block } from 'konsta/react';
 import { fontList, langList } from '../constants';
@@ -63,14 +63,14 @@ export default function StoryPage() {
     >
       {storyJson?.verseObjects ? (
         storyJson?.verseObjects.map((verse) => (
-          <Fragment key={verse.verse}>
+          <div id={`v${verse.verse}`} key={verse.verse}>
             {showImages === '1' ? (
               <img src={`/images/${verse.path}`} />
             ) : (
               ''
             )}
             <p className="mb-6 mt-2">{verse.text}</p>
-          </Fragment>
+          </div>
         ))
       ) : (
         <>{t('Loading...')}</>

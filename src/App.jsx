@@ -5,6 +5,7 @@ import LanguageAppPage from './pages/languageApp';
 import ErrorPage from './pages/error';
 import SettingsPage from './pages/settings/index';
 import StoryPage from './pages/story';
+import SearchPage from './pages/search';
 import StoryLayout from './layout/Story';
 import LanguagePage from './pages/settings/language';
 import FontPage from './pages/settings/font';
@@ -17,12 +18,13 @@ export default function App() {
     <Routes>
       <Route path="/" element={<MainLayout />} >
         <Route index element={<LanguageAppPage />} />
-        <Route path='app/' element={<LoadFromPage />} />
-        <Route path='app/internet' element={<FromInternetPage />} />
-        <Route path='app/device' element={<FromDevicePage />} />
+        <Route path='/app/' element={<LoadFromPage />} />
+        <Route path='/app/internet' element={<FromInternetPage />} />
+        <Route path='/app/device' element={<FromDevicePage />} />
       </Route>
-      <Route path=":lang/:story" element={<StoryLayout />}>
-        <Route index element={<StoryPage />} />
+      <Route path="/:lang/search" element={<SearchPage />} />
+      <Route path="/:lang" element={<StoryLayout />}>
+        <Route path="/:lang/:story" element={<StoryPage />} />
       </Route>
       <Route path="/settings" element={<SettingsLayout />}>
         <Route index element={<SettingsPage />} />
