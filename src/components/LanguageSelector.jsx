@@ -8,12 +8,11 @@ import { loadToCache, storage } from '../helper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const LanguageSelector = () => {
+const LanguageSelector = ({ loading, setLoading }) => {
   const setLanguage = useSetRecoilState(languageState);
   const story = useRecoilValue(storyState);
   const navigate = useNavigate();
   const [availableLangs, setAvailableLangs] = useState()
-  const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {

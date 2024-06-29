@@ -75,7 +75,7 @@ export default function StoryPage() {
       ) : (
         <>{t('Loading...')}</>
       )}
-      <p className="font-bold">{storyJson?.reference}</p>
+      <p className="ltr:italic" style={{ fontSize: '.9em' }}>{storyJson?.reference}</p>
     </Block>
   );
 }

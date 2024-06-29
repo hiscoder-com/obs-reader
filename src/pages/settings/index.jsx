@@ -50,6 +50,7 @@ export default function SettingsPage() {
 
   const clearCache = async () => {
     setConfirmOpened(false);
+    localStorage.clear();
     try {
       let keys = await langStorage.keys()
       for (const el of keys) {

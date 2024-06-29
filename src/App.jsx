@@ -12,7 +12,16 @@ import SettingsLanguageAppPage from './pages/settings/languageApp';
 import SettingsLayout from './layout/Settings';
 import MainLayout from './layout/Main';
 import LoadFromPage from './pages/loadFrom';
+import { useRecoilValue } from 'recoil';
+import { languageAppState } from './atoms';
+import { useEffect } from 'react';
 export default function App() {
+  const languageApp = useRecoilValue(languageAppState)
+
+  useEffect(() => {
+    document.documentElement.lang = languageApp
+  }, [languageApp])
+
   return (
     <Routes>
       <Route path="/" element={<MainLayout />} >

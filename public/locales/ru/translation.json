@@ -25,8 +25,16 @@
     "kk": "Қазақ",
     "hi": "हिन्दी (Hindi)",
     "uk": "Українська",
-    "uz": "Oʻzbek, Ўзбек, أۇزبېك‎",
-    "apd": "لهجة سودانية"
+    "uz": "Oʻzbek, Ўзбек",
+    "apd": "لهجة سودانية",
+    "kib": "Koalib",
+    "fvr": "Fur",
+    "tbi": "Gaam",
+    "kgo": "Krongo",
+    "mdg": "Masalit",
+    "liu": "Logorik",
+    "acz": "Garme",
+    "shj": "Caning"
   },
   "loaded": "Загружено",
   "LoadFromDevice": "Загрузить с устройства",

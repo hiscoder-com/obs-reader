@@ -1,11 +1,31 @@
-import { US as EN, RU, KZ as KK, IN as HI, UZ, UA as UK, SS } from 'country-flag-icons/react/3x2';
-export const countries = { en: EN, ru: RU, kk: KK, hi: HI, uz: UZ, uk: UK, apd: SS };
+import {
+  US as EN,
+  RU,
+  KZ as KK,
+  IN as HI,
+  UZ,
+  UA as UK,
+  SD as SS,
+} from 'country-flag-icons/react/3x2';
+export const countries = {
+  en: EN,
+  ru: RU,
+  kk: KK,
+  hi: HI,
+  uz: UZ,
+  uk: UK,
+  apd: SS,
+  kib: SS,
+  fvr: SS,
+  tbi: SS,
+  kgo: SS,
+  mdg: SS,
+  liu: SS,
+  acz: SS,
+  shj: SS,
+};
 
-export const languagesApp = [
-  'en',
-  'ru',
-  'apd'
-]
+export const languagesApp = ['en', 'ru', 'apd'];
 
 export const langList = {
   ru: 'ru_gl/ru_obs/raw/branch/master/content/',
@@ -20,6 +40,14 @@ export const langList = {
   uz: 'uz_gt_final/uz_obs/raw/branch/master/',
   uk: 'uk_gt/uk_obs/raw/branch/master/content/',
   apd: 'GRA/apd_obs/raw/branch/master/content/',
+  kib: 'Nhial/kib_obs_text_obs/raw/branch/master/',
+  fvr: 'Nhial/fvr_obs_text_obs/raw/branch/master/',
+  tbi: 'Nhial/tbi_obs_text_obs/raw/branch/master/',
+  kgo: 'Nhial/kgo_obs_text_obs/raw/branch/master/',
+  mdg: 'Nhial/mdg_obs_text_obs/raw/branch/master/',
+  liu: 'Nhial/liu_obs_text_obs/raw/branch/master/',
+  acz: 'Nhial/acz_obs_text_obs/raw/branch/master/',
+  shj: 'Nhial/shj_obs_text_obs/raw/branch/master/',
   // 'ur-deva': 'Door43-Catalog/ur-deva_obs/raw/branch/master/content/',
   // te: 'Door43-Catalog/te_obs/raw/branch/master/content/',
   // ta: 'Door43-Catalog/ta_obs/raw/branch/master/content/',
