@@ -159,7 +159,7 @@ export const loadToCache = async (zipFile, language, domain = 'https://git.door4
   await getCorrectNamesFromZip(zipRes.files, language, domain);
 };
 
-export const isRTL = (string) => {
+export const checkTextDirection = (string) => {
   const rtlChars = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
   return rtlChars.test(string);
 }

@@ -51,7 +51,7 @@ export default function FromDevice() {
         type="file"
         onChange={onChange}
         name="file"
-        className="w-full mb-12 text-base material:text-sm cursor-pointer appearance-none transition-colors focus:outline-none select-none overflow-hidden z-10 relative text-gray-500 dark:text-gray-400 ios:file:text-white material:file:text-md-light-on-primary material:dark:file:text-md-dark-on-primary ios:file:bg-primary material:file:bg-md-light-primary material:dark:file:bg-md-dark-primary bg-figma-bg-card-light dark:bg-figma-bg-card-dark file:cursor-pointer file:border-0 file:px-4 file:mr-4 ios:rounded material:rounded-lg material:font-medium ios:duration-100 material:duration-300 ios:file:pb-1 ios:file:pt-1.5 material:file:py-3 material:touch-ripple-white material:dark:touch-ripple-primary"
+        className="w-full mb-12 text-base material:text-sm cursor-pointer appearance-none transition-colors focus:outline-none select-none overflow-hidden z-10 relative text-gray-500 dark:text-gray-400 ios:file:text-white material:file:text-md-light-on-primary material:dark:file:text-md-dark-on-primary ios:file:bg-primary material:file:bg-md-light-primary material:dark:file:bg-md-dark-primary bg-figma-bg-card-light dark:bg-figma-bg-card-dark file:cursor-pointer file:border-0 file:px-4 ltr:file:mr-4 rtl:file:ml-4 ios:rounded material:rounded-lg material:font-medium ios:duration-100 material:duration-300 ios:file:pb-1 ios:file:pt-1.5 material:file:py-3 material:touch-ripple-white material:dark:touch-ripple-primary"
         id="file"
         accept=".zip"
       />

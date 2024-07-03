@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
 import { Block } from 'konsta/react';
 import LanguageAppSelector from '../components/LanguageAppSelector';
-import { useSetRecoilState } from 'recoil';
-import { titleState } from '../atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { languageState, storyState, titleState } from '../atoms';
 import { useNavigate } from 'react-router-dom';
 
 export default function LanguageAppPage() {
   const setTitle = useSetRecoilState(titleState);
+  const language = useRecoilValue(languageState)
+  const story = useRecoilValue(storyState)
   const navigate = useNavigate()
   useEffect(() => {
-    const language = localStorage.getItem('language')
-    const story = localStorage.getItem('story')
     if (language) {
       navigate('/' + language + '/' + story, { replace: true })
     }
 
-  }, [navigate])
+  }, [language, navigate, story])
   useEffect(() => {
     setTitle('OpenBibleStories');
   }, [setTitle]);

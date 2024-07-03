@@ -28,7 +28,7 @@ function DeviceLanguageList() {
   }
   return (
     <>
-      {langList ? <>
+      {langList.length > 0 ? <>
         <List>
           {langList.map((lang) => {
             return (
@@ -42,7 +42,7 @@ function DeviceLanguageList() {
           })}
         </List>
       </>
-        : ''}
+        : <div className="mb-12"></div>}
     </>
   )
 }

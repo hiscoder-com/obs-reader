@@ -3,20 +3,19 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { languageState, storyState, subtitleState } from '../atoms';
+import { isRtlState, languageState, storyState } from '../atoms';
 import axios from 'axios';
 import { langList } from '../constants';
 import { Xmark } from 'framework7-icons/react';
 import { MdClose } from 'react-icons/md';
-import { isRTL } from '../helper';
 
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const isRtl = useRecoilValue(isRtlState);
   const [story, setStory] = useRecoilState(storyState);
   const [language, setLanguage] = useRecoilState(languageState);
   const [stories, setStories] = useState('');
-  const subtitle = useRecoilValue(subtitleState);
 
   useEffect(() => {
     const baseUrl = language.startsWith('user-') ? 'https://git.door43.org/bsa/' : 'https://git.door43.org/'
@@ -56,7 +55,7 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   }, [language, navigate, setLanguage, setLeftPanelOpened, setStory, story, t]);
   return (
     <Panel
-      side={isRTL(subtitle) ? 'right' : 'left'}
+      side={isRtl === '1' ? 'right' : 'left'}
       size="h-screen w-96 max-w-[80vw]"
       opened={leftPanelOpened}
       onBackdropClick={() => setLeftPanelOpened(false)}

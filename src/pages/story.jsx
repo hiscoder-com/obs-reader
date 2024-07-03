@@ -13,6 +13,7 @@ import {
   subtitleState,
 } from '../atoms';
 import { useTranslation } from 'react-i18next';
+import NavigationBlock from '../components/NavigationBlock';
 
 export default function StoryPage() {
   const navigate = useNavigate();
@@ -48,13 +49,18 @@ export default function StoryPage() {
         setSubtitle(jsonData.title);
       }).catch((err) => {
         console.log(err);
+        if (story === '01') {
+          localStorage.removeItem('language');
+        } else {
+          localStorage.setItem('story', '01');
+        }
         navigate('/', { replace: true });
       });
   }, [lang, navigate, setSubtitle, story]);
 
   return (
     <Block
-      className="mt-5 mx-auto max-w-4xl"
+      className="mt-5  mx-auto max-w-4xl"
       style={{
         fontSize: `${parseInt(fontSize)}px`,
         lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,
@@ -75,7 +81,8 @@ export default function StoryPage() {
       ) : (
         <>{t('Loading...')}</>
       )}
-      <p className="ltr:italic" style={{ fontSize: '.9em' }}>{storyJson?.reference}</p>
+      <p className="ltr:italic mb-20" style={{ fontSize: '.9em' }}>{storyJson?.reference}</p>
+      <NavigationBlock />
     </Block>
   );
 }
