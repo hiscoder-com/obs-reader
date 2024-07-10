@@ -23,6 +23,7 @@
     "en": "English",
     "ru": "Русский",
     "kk": "Қазақ",
+    "ar": "العربية",
     "hi": "हिन्दी (Hindi)",
     "uk": "Українська",
     "uz": "Ўзбек",
@@ -64,7 +65,7 @@
     "pak": "Parakanã",
     "rml": "Baltic Romani",
     "bcc": "بلوچی زبان",
-    "ar-x-dcv": "العربية Dominant Culture Variant"
+    "ar-x-dcv": "العربية - الوطن العربي"
   },
   "loaded": "تحميل",
   "LoadFromDevice": "تحميل من الجهاز",

@@ -61,7 +61,7 @@ const LanguageSelector = ({ loading, setLoading }) => {
         </> :
         <>
           <List>
-            {languages.map((lang, index) => {
+            {languages.sort((a, b) => t(`languages.${a}`).localeCompare(t(`languages.${b}`))).map((lang, index) => {
               const CountryIcon = countries[lang]
               return (
                 <ListItem
