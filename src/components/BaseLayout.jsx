@@ -1,19 +1,23 @@
 import { getTheme } from '../helper'
 import { App, Page } from 'konsta/react'
-import { useRecoilValue } from 'recoil';
-import { darkModeState, isRtlState } from '../atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { darkModeState, directionAppState, languageAppState } from '../atoms';
 import { useEffect } from 'react';
-
-// TODO надо глобальный стейт завести isRTL потому что сейчас дергается экран при перелистывании, и нужна нам эта проверка в нескольких местах
-// TODO подумать о том, как лучше определять направление текста. Вынести это в конфиг (см. constants.js) и при добавлении новых языков сделать чекбокс isRTL.
+import { rtlLanguages } from '../constants';
 
 // TODO надо добавить перевод на арабский, персидский, хинди
 
 function BaseLayout({ children }) {
-  const isRtl = useRecoilValue(isRtlState);
+  const [directionApp, setDirectionApp] = useRecoilState(directionAppState);
+  const languageApp = useRecoilValue(languageAppState);
+
   useEffect(() => {
-    document.documentElement.dir = isRtl === '1' ? 'rtl' : 'ltr';
-  }, [isRtl])
+    setDirectionApp(rtlLanguages.includes(languageApp) ? 'rtl' : 'ltr');
+  }, [languageApp, setDirectionApp])
+
+  useEffect(() => {
+    document.documentElement.dir = directionApp;
+  }, [directionApp])
 
   const darkMode = useRecoilValue(darkModeState);
   return (

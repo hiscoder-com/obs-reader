@@ -2,8 +2,8 @@ import { Icon, Link, List, ListItem, Navbar, Page, Panel } from 'konsta/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { isRtlState, languageState, storyState } from '../atoms';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { directionAppState, directionState, languageState, storyState } from '../atoms';
 import axios from 'axios';
 import { langList } from '../constants';
 import { Xmark } from 'framework7-icons/react';
@@ -12,9 +12,11 @@ import { MdClose } from 'react-icons/md';
 export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const isRtl = useRecoilValue(isRtlState);
+  const direction = useRecoilValue(directionState);
+  const directionApp = useRecoilValue(directionAppState);
   const [story, setStory] = useRecoilState(storyState);
-  const [language, setLanguage] = useRecoilState(languageState);
+  const language = useRecoilValue(languageState);
+  const resetLanguage = useResetRecoilState(languageState);
   const [stories, setStories] = useState('');
 
   useEffect(() => {
@@ -37,7 +39,6 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
               component={RouterLink}
               title={<div className={_.file === story ? 'font-bold' : ''}>{_.title}</div>}
               onClick={() => {
-                localStorage.setItem('story', _.file);
                 setStory(_.file);
                 setLeftPanelOpened(false)
               }}
@@ -47,15 +48,14 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
         );
       }).catch((err) => {
         console.log(err);
-        localStorage.setItem('language', '');
-        setLanguage('');
+        resetLanguage();
         navigate('/', { replace: true });
       });
 
-  }, [language, navigate, setLanguage, setLeftPanelOpened, setStory, story, t]);
+  }, [language, navigate, resetLanguage, setLeftPanelOpened, setStory, story, t]);
   return (
     <Panel
-      side={isRtl === '1' ? 'right' : 'left'}
+      side={directionApp === 'rtl' ? 'right' : 'left'}
       size="h-screen w-96 max-w-[80vw]"
       opened={leftPanelOpened}
       onBackdropClick={() => setLeftPanelOpened(false)}
@@ -71,7 +71,7 @@ export default function LeftMenu({ leftPanelOpened, setLeftPanelOpened }) {
             </Link>
           }
         />
-        <List margin='mt-0 mb-8'>
+        <List margin='mt-0 mb-8' style={{ direction }}>
           {stories}
         </List>
       </Page>

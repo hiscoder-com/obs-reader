@@ -4,12 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Block } from 'konsta/react';
 import { fontList, langList } from '../constants';
 import MdToJson from '@texttree/obs-format-convert-rcl/dist/components/MdToJson';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import {
   fontSizeState,
   fontState,
+  directionState,
   languageState,
   showImagesState,
+  storyState,
   subtitleState,
 } from '../atoms';
 import { useTranslation } from 'react-i18next';
@@ -18,23 +20,20 @@ import NavigationBlock from '../components/NavigationBlock';
 export default function StoryPage() {
   const navigate = useNavigate();
   const { lang, story } = useParams();
+  const setStory = useSetRecoilState(storyState);
+  const resetLanguage = useResetRecoilState(languageState);
   const { t } = useTranslation();
-  const language = useRecoilValue(languageState);
   const font = useRecoilValue(fontState);
   const fontSize = useRecoilValue(fontSizeState);
+  const direction = useRecoilValue(directionState);
   const showImages = useRecoilValue(showImagesState);
   const setSubtitle = useSetRecoilState(subtitleState);
   const [storyJson, setStoryJson] = useState({});
-  useEffect(() => {
-    if (lang !== language) {
-      //navigate(`/${language}/${story}`);
-    }
-  }, [lang, language, navigate, story]);
 
   useEffect(() => {
     setStoryJson({});
     setSubtitle('...');
-    localStorage.setItem('story', story);
+    setStory(story);
     const baseUrl = lang.startsWith('user-') ? 'https://git.door43.org/bsa/' : 'https://git.door43.org/'
     axios
       .get(
@@ -50,21 +49,22 @@ export default function StoryPage() {
       }).catch((err) => {
         console.log(err);
         if (story === '01') {
-          localStorage.removeItem('language');
+          resetLanguage();
         } else {
-          localStorage.setItem('story', '01');
+          setStory('01');
         }
         navigate('/', { replace: true });
       });
-  }, [lang, navigate, setSubtitle, story]);
+  }, [lang, navigate, resetLanguage, setStory, setSubtitle, story]);
 
   return (
     <Block
-      className="mt-5  mx-auto max-w-4xl"
+      className="mt-5 mx-auto max-w-4xl"
       style={{
         fontSize: `${parseInt(fontSize)}px`,
         lineHeight: `${parseInt(parseInt(fontSize) * 1.4)}px`,
         fontFamily: font === 'default' ? '' : fontList[font],
+        direction,
       }}
     >
       {storyJson?.verseObjects ? (

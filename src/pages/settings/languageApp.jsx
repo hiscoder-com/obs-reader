@@ -10,7 +10,7 @@ export default function LanguagePage() {
   }, [setTitle]);
   return (
     <Block className="mt-5 mx-auto max-w-4xl">
-      <LanguageAppSelector goTo={'/settings/'} />
+      <LanguageAppSelector goTo={-1} />
     </Block>
   );
 }

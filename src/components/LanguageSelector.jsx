@@ -1,15 +1,16 @@
 import { List, ListItem, BlockTitle, Icon, Progressbar, Block } from 'konsta/react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { languageState, storyState } from '../atoms';
+import { directionState, languageState, storyState } from '../atoms';
 import { useNavigate } from 'react-router-dom';
-import { countries, langList, languages } from '../constants';
+import { countries, langList, languages, rtlLanguages } from '../constants';
 import { loadToCache, storage } from '../helper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const LanguageSelector = ({ loading, setLoading }) => {
   const setLanguage = useSetRecoilState(languageState);
+  const setDirection = useSetRecoilState(directionState);
   const story = useRecoilValue(storyState);
   const navigate = useNavigate();
   const [availableLangs, setAvailableLangs] = useState()
@@ -27,10 +28,7 @@ const LanguageSelector = ({ loading, setLoading }) => {
   const { t } = useTranslation();
   const onLanguageChange = (lang) => {
     setLanguage(lang);
-    const lsLanguage = localStorage.getItem('language');
-    if (lang !== lsLanguage) {
-      localStorage.setItem('language', lang);
-    }
+    setDirection(rtlLanguages.includes(lang) ? 'rtl' : 'ltr');
     if (availableLangs[languages.indexOf(lang)]) {
       navigate(`/${lang}/${story}`);
     } else {

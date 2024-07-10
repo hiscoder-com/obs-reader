@@ -65,8 +65,14 @@ export const darkModeState = atom({
   effects: [localStorageEffect('darkMode')],
 });
 
-export const isRtlState = atom({
-  key: 'isRtlState',
-  default: '0',
-  effects: [localStorageEffect('isRtl')]
+export const directionState = atom({
+  key: 'directionState',
+  default: 'ltr',
+  effects: [localStorageEffect('direction')]
+});
+
+export const directionAppState = atom({
+  key: 'directionAppState',
+  default: 'ltr',
+  effects: [localStorageEffect('directionApp')]
 });

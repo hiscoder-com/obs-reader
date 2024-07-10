@@ -1,20 +1,20 @@
 import { List, ListItem, BlockTitle, Icon } from 'konsta/react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
-import { isRtlState, languageAppState } from '../atoms';
+import { directionAppState, languageAppState } from '../atoms';
 import { useNavigate } from 'react-router-dom';
 import { countries, languagesApp, rtlLanguages } from '../constants';
 
 const LanguageAppSelector = ({ goTo }) => {
   const setLanguageApp = useSetRecoilState(languageAppState);
-  const setIsRtl = useSetRecoilState(isRtlState);
+  const setDirectionApp = useSetRecoilState(directionAppState);
   const navigate = useNavigate();
 
   const { t, i18n } = useTranslation();
   const onLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
     setLanguageApp(lang);
-    setIsRtl(rtlLanguages.includes(lang) ? '1' : '0');
+    setDirectionApp(rtlLanguages.includes(lang) ? 'rtl' : 'ltr');
     navigate(goTo);
   }
   return (

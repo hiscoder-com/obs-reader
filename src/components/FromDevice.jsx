@@ -1,15 +1,17 @@
 import { useRef, useState } from 'react';
 import { BlockTitle, Button } from 'konsta/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { languageState, storyState } from '../atoms';
-import { langStorage, loadToCache } from '../helper';
+import { directionState, languageState, storyState } from '../atoms';
+import { checkTextDirection, langStorage, loadToCache } from '../helper';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 export default function FromDevice() {
   const { t } = useTranslation();
   const fileInput = useRef();
   const setLanguage = useSetRecoilState(languageState);
+  const setDirection = useSetRecoilState(directionState);
   const [isEnabled, setIsEnabled] = useState(false)
   const [langName, setLangName] = useState('')
   const [langCode, setLangCode] = useState('')
@@ -26,11 +28,17 @@ export default function FromDevice() {
     let reader = new FileReader();
     try {
       reader.onload = async function () {
-        await langStorage.setItem(langCode, langName)
         setLanguage('user-' + langCode)
-        localStorage.setItem('language', 'user-' + langCode)
-        await loadToCache(reader.result, 'user-' + langCode, 'https://git.door43.org/bsa/');
-        navigate(`/user-${langCode}/${story}`);
+        await loadToCache(reader.result, 'user-' + langCode, 'https://git.door43.org/bsa/')
+        const { data: toc } = await axios.get('https://git.door43.org/bsa/user-' + langCode + '/toc.json', {
+          headers: {
+            Accept: 'application/json',
+          }
+        })
+        const firstStory = JSON.parse(toc)[0].title;
+        setDirection(checkTextDirection(firstStory) ? 'rtl' : 'ltr')
+        await langStorage.setItem(langCode, JSON.stringify({ name: langName, direction: (checkTextDirection(firstStory) ? 'rtl' : 'ltr') }))
+        navigate(`/user-${langCode}/${story}`)
       };
       reader.readAsArrayBuffer(fileInput.current);
     } catch (err) {

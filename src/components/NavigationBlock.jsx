@@ -1,5 +1,5 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isRtlState, languageState, storyState } from "../atoms";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { directionAppState, languageState, storyState } from "../atoms";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -10,9 +10,9 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 function NavigationBlock() {
   const { lang, story } = useParams();
-  const isRtl = useRecoilValue(isRtlState);
+  const directionApp = useRecoilValue(directionAppState);
   const navigate = useNavigate();
-  const setLanguage = useSetRecoilState(languageState);
+  const resetLanguage = useResetRecoilState(languageState);
   const [toc, setToc] = useState([])
   const [currentIndex, setCurrentIndex] = useState()
   const setStory = useSetRecoilState(storyState);
@@ -37,12 +37,11 @@ function NavigationBlock() {
         setToc(JSON.parse(data).map(el => el.file))
       }).catch((err) => {
         console.log(err);
-        localStorage.setItem('language', '');
-        setLanguage('');
+        resetLanguage();
         navigate('/', { replace: true });
       });
 
-  }, [baseUrl, lang, navigate, setLanguage])
+  }, [baseUrl, lang, navigate, resetLanguage])
 
   const goBackward = () => {
     if (currentIndex > 0) {
@@ -58,10 +57,10 @@ function NavigationBlock() {
     }
   }
   return (
-    <><div onClick={() => isRtl === '1' ? goForward() : goBackward()} className="fixed bottom-4 md:hidden leading-[0] left-4 rounded-full p-3 border shadow-md bg-figma-bg-card-light/90 border-figma-border-light dark:border-figma-border-dark dark:bg-figma-bg-card-dark/90 cursor-pointer">
+    <><div onClick={() => directionApp === 'rtl' ? goForward() : goBackward()} className="fixed bottom-4 md:hidden leading-[0] left-4 rounded-full p-3 border shadow-md bg-figma-bg-card-light/90 border-figma-border-light dark:border-figma-border-dark dark:bg-figma-bg-card-dark/90 cursor-pointer">
       <span>
         <Icon ios={<ChevronLeft className="w-6 h-6" />} material={<MdChevronLeft className="w-6 h-6" />} /></span>
-    </div><div onClick={() => isRtl === '1' ? goBackward() : goForward()} className="fixed bottom-4 md:hidden leading-[0] right-4 rounded-full p-3 border shadow-md bg-figma-bg-card-light/90 border-figma-border-light dark:border-figma-border-dark dark:bg-figma-bg-card-dark/90 cursor-pointer">
+    </div><div onClick={() => directionApp === 'rtl' ? goBackward() : goForward()} className="fixed bottom-4 md:hidden leading-[0] right-4 rounded-full p-3 border shadow-md bg-figma-bg-card-light/90 border-figma-border-light dark:border-figma-border-dark dark:bg-figma-bg-card-dark/90 cursor-pointer">
         <Icon ios={<ChevronRight className="w-6 h-6" />} material={<MdChevronRight className="w-6 h-6" />} />
       </div></>
   )

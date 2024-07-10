@@ -22,7 +22,7 @@ export default function LanguageAppPage() {
 
   return (
     <Block className="mt-5 mx-auto max-w-4xl">
-      <LanguageAppSelector goTo={'/app/'} />
+      <LanguageAppSelector goTo={'/app'} />
     </Block>
   );
 }

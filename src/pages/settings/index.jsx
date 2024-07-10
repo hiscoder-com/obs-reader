@@ -8,14 +8,18 @@ import {
   Range,
   Toggle,
 } from 'konsta/react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import {
   darkModeState,
   fontSizeState,
   fontState,
+  directionAppState,
+  directionState,
   languageAppState,
   languageState,
   showImagesState,
+  storyState,
+  subtitleState,
   titleState,
 } from '../../atoms';
 import { useEffect, useState } from 'react';
@@ -27,7 +31,7 @@ import SettingsExample from '../../components/SettingsExample';
 import { langList } from '../../constants';
 
 export default function SettingsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate()
   const setTitle = useSetRecoilState(titleState);
   const language = useRecoilValue(languageState);
@@ -37,20 +41,38 @@ export default function SettingsPage() {
   const [showImages, setShowImages] = useRecoilState(showImagesState);
   const [darkMode, setDarkMode] = useRecoilState(darkModeState);
   const [fontSize, setFontSize] = useRecoilState(fontSizeState);
+  const resetLanguage = useResetRecoilState(languageState);
+  const resetStory = useResetRecoilState(storyState);
+  const resetTitle = useResetRecoilState(titleState);
+  const resetSubtitle = useResetRecoilState(subtitleState);
+  const resetDirection = useResetRecoilState(directionState);
+  const resetDirectionApp = useResetRecoilState(directionAppState);
+  const resetLanguageApp = useResetRecoilState(languageAppState);
+
+  const resetData = () => {
+    resetLanguage();
+    resetStory();
+    resetTitle();
+    resetSubtitle();
+    resetDirection();
+    resetLanguageApp();
+    resetDirectionApp();
+    i18n.changeLanguage('en');
+  }
 
   useEffect(() => {
     setTitle('Settings');
   }, [setTitle]);
 
   useEffect(() => {
-    langList[language] ? setLangName(t(`languages.${language}`)) : langStorage.getItem(language.slice('5')).then(res => setLangName(res))
+    langList[language] ? setLangName(t(`languages.${language}`)) : langStorage.getItem(language.slice('5')).then(res => setLangName(JSON.parse(res).name))
   }, [language, t])
 
   const [confirmOpened, setConfirmOpened] = useState(false);
 
   const clearCache = async () => {
     setConfirmOpened(false);
-    localStorage.clear();
+    resetData();
     try {
       let keys = await langStorage.keys()
       for (const el of keys) {
@@ -68,23 +90,14 @@ export default function SettingsPage() {
   };
 
   const showImagesHandler = () => {
-    setShowImages((prev) => {
-      const newValue = prev === '1' ? '0' : '1';
-      localStorage.setItem('showImages', newValue);
-      return newValue;
-    });
+    setShowImages((prev) => prev === '1' ? '0' : '1');
   };
 
   const darkModeHandler = () => {
-    setDarkMode((prev) => {
-      const newValue = prev === '1' ? '0' : '1';
-      localStorage.setItem('darkMode', newValue);
-      return newValue;
-    });
+    setDarkMode((prev) => prev === '1' ? '0' : '1');
   };
 
   const fontSizeHandler = (e) => {
-    localStorage.setItem('fontSize', parseInt(e.target.value));
     setFontSize(parseInt(e.target.value));
   };
 
