@@ -16,7 +16,7 @@ import {
   YE,
   BR,
   BY,
-  SA
+  SA,
 } from 'country-flag-icons/react/3x2';
 
 export const countries = {
@@ -65,13 +65,14 @@ export const countries = {
   bcc: IR,
   'ar-x-dcv': SA,
   ar: SA,
+  fa: IR,
 };
 
 
 
-export const languagesApp = ['en', 'ru', 'ar'];
+export const languagesApp = ['en', 'ru', 'ar', "fa"];
 
-export const rtlLanguages = ['apd', 'srz', 'bal', 'tly', 'haz', 'tk', 'tks', 'smy', 'qxq', 'mzn', 'lrc', 'glk', 'def', 'ckb', 'bqi', 'lki', 'ar-xzn', 'bcc', 'ar-x-dcv', 'ar'];
+export const rtlLanguages = ['apd', 'srz', 'bal', 'tly', 'haz', 'tk', 'tks', 'smy', 'qxq', 'mzn', 'lrc', 'glk', 'def', 'ckb', 'bqi', 'lki', 'ar-xzn', 'bcc', 'ar-x-dcv', 'ar', 'fa'];
 
 export const langList = {
   en: 'unfoldingWord/en_obs/raw/branch/master/content/',
