@@ -3,6 +3,7 @@ import { setupCache, buildStorage } from 'axios-cache-interceptor';
 import JSZip from 'jszip';
 import localforage from 'localforage';
 import { langList } from './constants';
+import JsonToMd from '@texttree/obs-format-convert-rcl/dist/components/JsonToMd'
 
 export const TTL = 1000 * 60 * 60 * 24 * 365;
 
@@ -65,6 +66,65 @@ const saveToCache = async (baseUrl, fileName, content) => {
   });
 };
 const getCorrectNamesFromZip = async (files, language, domain) => {
+  // есть 2 формата. Или обычный с 50 md файлами, или 50 папок с txt файлами. Надо тут учесть.
+  const searchLine = Object.keys(files).join('|');
+  const isTxt = /\d\d\/\d\d.txt/gm;
+  const isMd = /\d\d.md/gm;
+  if (searchLine.match(isTxt)) {
+    await parseTxt(files, language, domain);
+  } else if (searchLine.match(isMd)) {
+    await parseMd(files, language, domain);
+  }
+};
+
+const parseTxt = async (files, language, domain) => {
+  let toc = [];
+  let stories = [];
+  for (const file in files) {
+    if (Object.hasOwnProperty.call(files, file)) {
+      const fileData = files[file];
+      if (fileData.dir || fileData.name.substring(fileData.name.length - 4) !== '.txt')
+        continue;
+      const filePaths = fileData.name.split('/');
+      const frame = filePaths.pop().replace('.txt', '');
+      const story = filePaths.pop();
+      if (isNaN(parseInt(story))) continue;
+      if (isNaN(parseInt(frame)) && !['reference', 'title'].includes(frame)) continue;
+      const content = await fileData.async('string');
+      const storyIdx = parseInt(story) - 1;
+      if (frame === 'title') {
+        toc[storyIdx] = { file: story, title: content.trim() };
+      }
+      stories[storyIdx] = stories[storyIdx] || {};
+      if (isNaN(parseInt(frame))) {
+        stories[storyIdx][frame] = content.trim();
+      } else {
+        stories[storyIdx]['verseObjects'] ??= [];
+        stories[storyIdx]['verseObjects'][parseInt(frame) - 1] = {
+          path: `obs-en-${story}-${frame}.jpg`,
+          text: content.trim().replaceAll('\r', '').replaceAll('\n', ' ').replaceAll('  ', ' '),
+          verse: parseInt(frame),
+        };
+      }
+    }
+  }
+  for (const [idx, story] of stories.entries()) {
+    if (story) {
+      await saveToCache(
+        'get+' + domain + (langList[language] ?? language+'/'),
+        `${String(idx+1).padStart(2, '0')}.md`,
+        JsonToMd(story)
+      );
+    }
+  }
+  await saveToCache(
+    'get+' + domain + (langList[language] ?? language+'/'),
+    'toc.json',
+    JSON.stringify(toc)
+  );
+}
+
+const parseMd = async (files, language, domain) => {
   const toc = [];
   for (const file in files) {
     if (Object.hasOwnProperty.call(files, file)) {
@@ -91,10 +151,15 @@ const getCorrectNamesFromZip = async (files, language, domain) => {
     'toc.json',
     JSON.stringify(toc)
   );
-};
+}
 
 export const loadToCache = async (zipFile, language, domain = 'https://git.door43.org/') => {
   const zip = new JSZip();
   const zipRes = await zip.loadAsync(zipFile);
   await getCorrectNamesFromZip(zipRes.files, language, domain);
 };
+
+export const checkTextDirection = (string) => {
+  const rtlChars = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+  return rtlChars.test(string);
+}

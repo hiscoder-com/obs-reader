@@ -2,11 +2,18 @@ import { Block, BlockTitle, Navbar, NavbarBackLink } from 'konsta/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BaseLayout from '../components/BaseLayout';
+import { useResetRecoilState } from 'recoil';
+import { directionState, languageState } from '../atoms';
+import { useEffect } from 'react';
 
-// TODO added button for removing all settings
 export default function Settings() {
   const { t } = useTranslation();
-  localStorage.setItem('language', '');
+  const resetLanguage = useResetRecoilState(languageState);
+  const resetDirection = useResetRecoilState(directionState);
+  useEffect(() => {
+    resetLanguage();
+    resetDirection();
+  }, [resetLanguage, resetDirection]);
   return (
     <BaseLayout>
       <Navbar

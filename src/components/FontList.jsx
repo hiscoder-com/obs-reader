@@ -1,20 +1,12 @@
 import { useRecoilState } from 'recoil';
 import { fontList } from '../constants';
 import { fontState } from '../atoms';
-import { useEffect } from 'react';
 import { List, ListItem, Radio } from 'konsta/react';
 import { useNavigate } from 'react-router-dom';
 
 const FontList = () => {
   const [font, setFont] = useRecoilState(fontState);
   const navigate = useNavigate();
-  useEffect(() => {
-    const lsFont = localStorage.getItem('font');
-    if (font !== lsFont) {
-      localStorage.setItem('font', font);
-      navigate(-1);
-    }
-  }, [font, navigate]);
   return (
     <List strongIos outlineIos defaultChecked={font}>
       {Object.entries(fontList).map(([name, fontFamily]) => (
@@ -28,7 +20,10 @@ const FontList = () => {
               component="div"
               value={name}
               checked={font === name}
-              onChange={() => setFont(name)}
+              onChange={() => {
+                setFont(name)
+                navigate(-1)
+              }}
             />
           }
         />

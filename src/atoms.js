@@ -1,39 +1,34 @@
 import { atom } from 'recoil';
 
-let defaultFont = 'default';
-if (!localStorage.getItem('font')) {
-  localStorage.setItem('font', defaultFont);
-} else {
-  defaultFont = localStorage.getItem('font');
-}
+const localStorageEffect = (key) => ({setSelf, onSet}) => {
+  const savedValue = localStorage.getItem(key)
+  if (savedValue != null) {
+    setSelf(savedValue);
+  }
+
+  onSet((newValue, _, isReset) => {
+    isReset
+      ? localStorage.removeItem(key)
+      : localStorage.setItem(key, newValue);
+  });
+};
 
 export const fontState = atom({
   key: 'fontState',
-  default: defaultFont,
+  default: 'default',
+  effects: [localStorageEffect('font')],
 });
-
-let defaultLanguage = '';
-if (!localStorage.getItem('language')) {
-  localStorage.setItem('language', defaultLanguage);
-} else {
-  defaultLanguage = localStorage.getItem('language');
-}
 
 export const languageState = atom({
   key: 'languageState',
-  default: defaultLanguage,
+  default: '',
+  effects: [localStorageEffect('language')],
 });
-
-let defaultLanguageApp = 'en';
-if (!localStorage.getItem('languageApp')) {
-  localStorage.setItem('languageApp', defaultLanguageApp);
-} else {
-  defaultLanguageApp = localStorage.getItem('languageApp');
-}
 
 export const languageAppState = atom({
   key: 'languageAppState',
-  default: defaultLanguageApp,
+  default: 'en',
+  effects: [localStorageEffect('languageApp')],
 });
 
 export const subtitleState = atom({
@@ -46,50 +41,38 @@ export const titleState = atom({
   default: '',
 });
 
-let defaultShowImages = '1';
-if (!localStorage.getItem('showImages')) {
-  localStorage.setItem('showImages', defaultShowImages);
-} else {
-  defaultShowImages = localStorage.getItem('showImages');
-}
-
 export const showImagesState = atom({
   key: 'showImagesState',
-  default: defaultShowImages,
+  default: '1',
+  effects: [localStorageEffect('showImages')],
 });
-
-let defaultFontSize = 16;
-if (!localStorage.getItem('fontSize')) {
-  localStorage.setItem('fontSize', defaultFontSize);
-} else {
-  defaultFontSize = localStorage.getItem('fontSize');
-}
 
 export const fontSizeState = atom({
   key: 'fontSizeState',
-  default: defaultFontSize,
+  default: 16,
+  effects: [localStorageEffect('fontSize')],
 });
-
-let defaultStory = '01';
-if (!localStorage.getItem('story')) {
-  localStorage.setItem('story', defaultStory);
-} else {
-  defaultStory = localStorage.getItem('story');
-}
 
 export const storyState = atom({
   key: 'storyState',
-  default: defaultStory,
+  default: '01',
+  effects: [localStorageEffect('story')],
 });
-
-let defaultDarkMode = '0';
-if (!localStorage.getItem('darkMode')) {
-  localStorage.setItem('darkMode', defaultDarkMode);
-} else {
-  defaultDarkMode = localStorage.getItem('darkMode');
-}
 
 export const darkModeState = atom({
   key: 'darkModeState',
-  default: defaultDarkMode,
+  default: '0',
+  effects: [localStorageEffect('darkMode')],
+});
+
+export const directionState = atom({
+  key: 'directionState',
+  default: 'ltr',
+  effects: [localStorageEffect('direction')]
+});
+
+export const directionAppState = atom({
+  key: 'directionAppState',
+  default: 'ltr',
+  effects: [localStorageEffect('directionApp')]
 });
