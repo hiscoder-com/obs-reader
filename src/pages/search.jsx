@@ -13,15 +13,44 @@ import { MdMenu, MdSettings } from 'react-icons/md';
 import { GearAlt, Menu } from 'framework7-icons/react';
 import BaseLayout from '../components/BaseLayout';
 
-const getHighlightedText = (text, highlight) => {
-  // Split on highlight term and include term into parts, ignore case
-  const parts = text.split(new RegExp(`(${highlight.split(' ').join('|')})`, 'gi'));
-  return <span> {parts.map((part, i) =>
-    <span key={i} style={highlight.toLowerCase().split(' ').includes(part.toLowerCase()) ? { fontWeight: 'bold' } : {}}>
-      {part}
-    </span>)
-  } </span>;
-}
+const getHighlightedText = (text, query) => {
+  const tokens = query.toLowerCase().split(' ').filter(Boolean);
+
+  if (!tokens.length) {
+    return text;
+  }
+
+let parts = [];
+  let lastIndex = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    for (const token of tokens) {
+      // Проверяем, начинается ли часть текста с токена
+      const substring = text.slice(i, i + token.length).toLowerCase();
+      if (substring === token) {
+        // Проверяем, находится ли совпадение в начале слова
+        if (i === 0 || /\s/.test(text[i - 1])) {
+          if (i > lastIndex) {
+            parts.push(text.substring(lastIndex, i));
+          }
+          parts.push(
+            <span key={i} className="font-bold bg-yellow-200">
+              {text.substring(i, i + token.length)}
+            </span>
+          );
+          i += token.length - 1;
+          lastIndex = i + 1;
+          break;
+        }
+      }
+    }
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts;};
 
 export default function SearchPage() {
   const subtitle = useRecoilValue(subtitleState);
@@ -31,7 +60,12 @@ export default function SearchPage() {
   const { lang } = useParams();
   const [search, setSearch] = useState('')
   const [stories, setStories] = useState([])
-  const index = useRef(new flexsearch.Index({ tokenize: 'strict' }))
+  const index = useRef(new flexsearch.Index({
+    tokenize: 'forward',
+    cache: true,
+    language: lang,
+
+  }))
   useEffect(() => {
     for (let story = 1; story < 50; story++) {
       const baseUrl = lang.startsWith('user-') ? 'https://git.door43.org/bsa/' : 'https://git.door43.org/'
@@ -53,7 +87,8 @@ export default function SearchPage() {
         });
     }
   }, [lang]);
-  const result = index.current.search(search, { limit: 25, offset: 0 })
+  const result = index.current.search(search, 50, { suggest: true })
+  console.log({result})
   return (
     <BaseLayout>
       <Navbar
