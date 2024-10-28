@@ -35,6 +35,7 @@ export const countries = {
   liu: SS,
   acz: SS,
   shj: SS,
+  wll: SS,
   az: AZ,
   pid: VE,
   kn: HI,
@@ -68,11 +69,31 @@ export const countries = {
   fa: IR,
 };
 
+export const languagesApp = ['en', 'ru', 'ar', 'fa'];
 
-
-export const languagesApp = ['en', 'ru', 'ar', "fa"];
-
-export const rtlLanguages = ['apd', 'srz', 'bal', 'tly', 'haz', 'tk', 'tks', 'smy', 'qxq', 'mzn', 'lrc', 'glk', 'def', 'ckb', 'bqi', 'lki', 'ar-xzn', 'bcc', 'ar-x-dcv', 'ar', 'fa'];
+export const rtlLanguages = [
+  'apd',
+  'srz',
+  'bal',
+  'tly',
+  'haz',
+  'tk',
+  'tks',
+  'smy',
+  'qxq',
+  'mzn',
+  'lrc',
+  'glk',
+  'def',
+  'ckb',
+  'bqi',
+  'lki',
+  'ar-xzn',
+  'bcc',
+  'ar-x-dcv',
+  'ar',
+  'fa',
+];
 
 export const langList = {
   en: 'unfoldingWord/en_obs/raw/branch/master/content/',
@@ -81,15 +102,16 @@ export const langList = {
   //kk: 'kk_gt_final/kk_obs/raw/branch/master/', error 5, 19, 39
   uz: 'uz_gt_final/uz_obs/raw/branch/master/',
   uk: 'uk_gt/uk_obs/raw/branch/master/content/',
-  apd: 'GRA/apd_obs/raw/branch/master/content/',
+  apd: 'tot/apd_obs_text_obs/raw/branch/master/content/',
   kib: 'Nhial/kib_obs_text_obs/raw/branch/master/',
-  fvr: 'Nhial/fvr_obs_text_obs/raw/branch/master/',
+  fvr: 'tot/fvr_obs_text_obs/raw/branch/master/',
   tbi: 'Nhial/tbi_obs_text_obs/raw/branch/master/',
-  kgo: 'Nhial/kgo_obs_text_obs/raw/branch/master/',
-  mdg: 'Nhial/mdg_obs_text_obs/raw/branch/master/',
-  liu: 'Nhial/liu_obs_text_obs/raw/branch/master/',
-  acz: 'Nhial/acz_obs_text_obs/raw/branch/master/',
-  shj: 'Nhial/shj_obs_text_obs/raw/branch/master/',
+  wll: 'Nhial/wll_obs_text_obs/raw/branch/master/',
+  kgo: 'tot/kgo_obs_text_obs/raw/branch/master/',
+  mdg: 'tot/mdg_obs_text_obs/raw/branch/master/',
+  liu: 'tot/liu_obs_text_obs/raw/branch/master/',
+  acz: 'tot/acz_obs_text_obs/raw/branch/master/',
+  shj: 'tot/shj_obs_text_obs/raw/branch/master/',
   az: 'az_gt_final/az_obs/raw/branch/master/',
   pid: 'adipatealberto/pid_obs_text_obs/raw/branch/master/',
   kn: 'Door43-Catalog/kn_obs/raw/branch/master/content/',
