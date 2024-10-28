@@ -4,7 +4,7 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Block, Link, Searchbar, Icon, Navbar } from 'konsta/react';
 import { langList } from '../constants';
 import MdToJson from '@texttree/obs-format-convert-rcl/dist/components/MdToJson';
-import flexsearch from 'flexsearch';
+import Fuse from 'fuse.js';
 import { useRecoilValue } from 'recoil';
 import { subtitleState } from '../atoms';
 import LeftMenu from '../components/LeftMenu';
@@ -13,44 +13,35 @@ import { MdMenu, MdSettings } from 'react-icons/md';
 import { GearAlt, Menu } from 'framework7-icons/react';
 import BaseLayout from '../components/BaseLayout';
 // TODO wip
-const getHighlightedText = (text, query) => {
-  const tokens = query.toLowerCase().split(' ').filter(Boolean);
-
-  if (!tokens.length) {
-    return text;
-  }
-
-  let parts = [];
+const highlightMatches = ({ value: text, indices }) => {
+  let highlightedText = [];
   let lastIndex = 0;
 
-  for (let i = 0; i < text.length; i++) {
-    for (const token of tokens) {
-      // Проверяем, начинается ли часть текста с токена
-      const substring = text.slice(i, i + token.length).toLowerCase();
-      if (substring === token) {
-        // Проверяем, находится ли совпадение в начале слова
-        if (i === 0 || /\s/.test(text[i - 1])) {
-          if (i > lastIndex) {
-            parts.push(text.substring(lastIndex, i));
-          }
-          parts.push(
-            <span key={i} className="font-bold bg-yellow-200">
-              {text.substring(i, i + token.length)}
-            </span>
-          );
-          i += token.length - 1;
-          lastIndex = i + 1;
-          break;
-        }
-      }
-    }
-  }
+  indices.forEach(([start, end]) => {
+    // Extracting the text before the match, the match itself, and after the match
+    // if (start > 0 && text[start - 1].match(/\S/)) {
+    //   return;
+    // }
+    // if (end - start < 2) {
+    //   return;
+    // }
 
-  if (lastIndex < text.length) {
-    parts.push(text.substring(lastIndex));
-  }
+    // Add the text before the match
+    highlightedText.push(text.slice(lastIndex, start));
+    // Add the highlighted match
+    highlightedText.push(
+      <span key={start} className="bg-yellow-200 dark:bg-yellow-800">
+        {text.slice(start, end + 1)}
+      </span>
+    );
+    // Update the lastIndex
+    lastIndex = end + 1;
+  });
 
-  return parts;
+  // Add the remaining part of the text after the last match
+  highlightedText.push(text.slice(lastIndex));
+
+  return <>{highlightedText}</>;
 };
 
 export default function SearchPage() {
@@ -60,40 +51,58 @@ export default function SearchPage() {
 
   const { lang } = useParams();
   const [search, setSearch] = useState('');
-  const [stories, setStories] = useState([]);
-  const index = useRef(
-    new flexsearch.Index({
-      tokenize: 'forward',
-      cache: true,
-      language: lang,
-    })
-  );
+  const [result, setResult] = useState('');
+  // const [stories, setStories] = useState([]);
+  const index = useRef();
   useEffect(() => {
+    const storiesUrl = [];
+    const searchData = [];
+    const baseUrl = lang.startsWith('user-')
+      ? 'https://git.door43.org/bsa/'
+      : 'https://git.door43.org/';
     for (let story = 1; story < 50; story++) {
-      const baseUrl = lang.startsWith('user-')
-        ? 'https://git.door43.org/bsa/'
-        : 'https://git.door43.org/';
-      axios
-        .get(
+      storiesUrl.push(
+        axios.get(
           baseUrl +
             (langList[lang] ?? lang + '/') +
             String(story).padStart(2, '0') +
             '.md'
         )
-        .then((res) => {
-          const jsonData = MdToJson(res.data);
-          setStories((prev) => ({ ...prev, [story]: jsonData }));
-          for (const verse of jsonData.verseObjects) {
-            index.current.add(story + ':' + verse.verse, verse.text);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      );
     }
+    axios
+      .all(storiesUrl)
+      .then((results) => {
+        results.map((res) => {
+          const jsonData = MdToJson(res.data);
+          for (const verse of jsonData.verseObjects) {
+            const story = res.config.url.split('/').pop().split('.')[0];
+            searchData.push({ id: story + ':' + verse.verse, content: verse.text });
+          }
+        });
+        index.current = new Fuse(searchData, {
+          keys: ['content'],
+          includeMatches: true,
+          threshold: 0.3, // Adjust as needed for fuzziness
+          location: 0, // Only match at the start of words
+          distance: 100, // Adjust as needed for fuzziness
+          minMatchCharLength: 2, // Adjust as needed for fuzziness
+          maxPatternLength: 32, // Adjust as needed for fuzziness
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [lang]);
-  const result = index.current.search(search, 50, { suggest: true });
-  console.log({ result });
+  useEffect(() => {
+    if (search) {
+      const result = index.current.search(`${search}`);
+      setResult(result);
+      console.log({ result });
+    } else {
+      setResult([]);
+    }
+  }, [search]);
   return (
     <BaseLayout>
       <Navbar
@@ -146,27 +155,17 @@ export default function SearchPage() {
       <Block className="mt-5 mx-auto max-w-4xl">
         <div>
           {result &&
-            result
-              .sort((a, b) => {
-                const [a1, a2] = a.split(':');
-                const [b1, b2] = b.split(':');
-                return a1 === b1 ? a2 - b2 : a1 - b1;
-              })
-              .map((el) => (
-                <p key={el} className="mb-3">
-                  <Link
-                    component={RouterLink}
-                    to={`/${lang}/${String(el.split(':')[0]).padStart(2, '0')}#v${el.split(':')[1]}`}
-                  >
-                    {el}
-                  </Link>{' '}
-                  {getHighlightedText(
-                    stories[el.split(':')[0]].verseObjects[parseInt(el.split(':')[1]) - 1]
-                      .text,
-                    search
-                  )}
-                </p>
-              ))}
+            result.map(({ item, matches }) => (
+              <p key={item.id} className="mb-3">
+                <Link
+                  component={RouterLink}
+                  to={`/${lang}/${String(item.id.split(':')[0]).padStart(2, '0')}#v${item.id.split(':')[1]}`}
+                >
+                  {item.id}
+                </Link>
+                {highlightMatches(matches[0])}
+              </p>
+            ))}
         </div>
       </Block>
     </BaseLayout>

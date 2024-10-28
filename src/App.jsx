@@ -6,6 +6,8 @@ import ErrorPage from './pages/error';
 import SettingsPage from './pages/settings/index';
 import StoryPage from './pages/story';
 import SearchPage from './pages/search';
+import Search2Page from './pages/search2';
+import Search3Page from './pages/search3';
 import StoryLayout from './layout/Story';
 import LanguagePage from './pages/settings/language';
 import FontPage from './pages/settings/font';
@@ -32,6 +34,8 @@ export default function App() {
         <Route path='/app/device' element={<FromDevicePage />} />
       </Route>
       <Route path="/:lang/search" element={<SearchPage />} />
+      <Route path="/:lang/search2" element={<Search2Page />} />
+      <Route path="/:lang/search3" element={<Search3Page />} />
       <Route path="/:lang" element={<StoryLayout />}>
         <Route path="/:lang/:story" element={<StoryPage />} />
       </Route>
